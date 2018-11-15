@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AppNavbar from "./components/AppNavbar";
 import CategoriesList from "./components/CategoriesList";
 import ItemModal from "./components/ItemModal";
+import Timer from "./components/Timer";
 import { Container } from "reactstrap";
 import { Provider } from "react-redux";
 import store from "./store";
@@ -17,6 +18,7 @@ class App extends Component {
           <Container>
             <ItemModal />
             <CategoriesList />
+            <Timer />
           </Container>
         </div>
       </Provider>
