@@ -37,7 +37,7 @@ class ItemModal extends Component {
     while (!letterIsGood) {
       random = Math.floor(Math.random() * (+max - +min)) + +min;
       console.log(random);
-      if (random < 85 && random != 81) {
+      if (random > 64 && random < 85 && random != 81) {
         letterIsGood = true;
       }
     }
