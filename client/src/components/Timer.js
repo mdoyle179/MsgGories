@@ -40,7 +40,7 @@ class Timer extends React.Component {
   }
 
   renderTimer() {
-    if (this.state.time <= 1000) return 0;
+    if (this.state.time < 1000) return 0;
 
     return ms(this.state.time, { compact: true });
   }

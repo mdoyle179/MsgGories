@@ -17,13 +17,32 @@ import { addItem } from "../actions/itemActions";
 class ItemModal extends Component {
   state = {
     modal: false,
-    name: ""
+    name: "",
+    letter: ""
   };
 
   toggle = () => {
     this.setState({
       modal: !this.state.modal
     });
+  };
+
+  generateLetter = () => {
+    var min = 64;
+    var max = 90;
+    var random;
+
+    var letterIsGood = false;
+
+    while (!letterIsGood) {
+      random = Math.floor(Math.random() * (+max - +min)) + +min;
+      console.log(random);
+      if (random < 85 && random != 81) {
+        letterIsGood = true;
+      }
+    }
+    var letter = String.fromCharCode(random);
+    this.setState({ letter: letter });
   };
 
   onChange = e => {
@@ -41,17 +60,19 @@ class ItemModal extends Component {
   };
 
   render() {
+    const { letter } = this.state;
     return (
       <div>
         <Button
           color="dark"
           style={{ marginBottom: "2rem" }}
-          onClick={this.toggle}
+          onClick={this.generateLetter}
         >
-          Add Item
+          Roll Die
         </Button>
-        <Modal isOpen={this.state.modal} toogle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Add To Shopping List</ModalHeader>
+        <div>{letter}</div>
+        <Modal isOpen={this.state.modal}>
+          <ModalHeader>Add To Shopping List</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
