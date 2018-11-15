@@ -19,3 +19,16 @@
   opacity: 0.01;
   transition: opacity 1000ms ease-in;
 }
+
+body {
+  background-color: black;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: azure;
+}
+
+.overallLook {
+  background-color: black;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: azure;
+  font-size: 18pt;
+}

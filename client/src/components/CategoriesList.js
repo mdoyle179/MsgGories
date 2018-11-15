@@ -10,7 +10,7 @@ import AppNavbar from "./AppNavbar";
 
 import PropTypes from "prop-types";
 
-class ShoppingList extends Component {
+class CategoriesList extends Component {
   componentDidMount() {
     this.props.getItems();
   }
@@ -23,15 +23,15 @@ class ShoppingList extends Component {
   };
 
   render() {
-    const { items } = this.props.item;
+    const { items } = this.props.itemsReducerInstance;
     return (
-      <Container id="ElContenedor">
+      <Container id="ElContenedor" className="overallLook">
         <ListGroup>
-          <TransitionGroup className="shopping-list">
+          <TransitionGroup>
             {items.map(({ id, name }) => (
               <CSSTransition key={id} timeout={500} classNames="fade">
-                <ListGroupItem>
-                  <Button
+                <ListGroupItem className="overallLook">
+                  {/* <Button
                     id="ElBoton"
                     className="remove-btn"
                     color="danger"
@@ -39,7 +39,7 @@ class ShoppingList extends Component {
                     onClick={this.onDeleteClick.bind(this, id)}
                   >
                     &times;
-                  </Button>
+                  </Button> */}
                   {name}
                 </ListGroupItem>
               </CSSTransition>
@@ -51,16 +51,16 @@ class ShoppingList extends Component {
   }
 }
 
-ShoppingList.propTypes = {
+CategoriesList.propTypes = {
   getItems: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  item: state.item
+  itemsReducerInstance: state.itemsReducerInstance
 });
 
 export default connect(
   mapStateToProps,
   { getItems, deleteItem, addItem }
-)(ShoppingList);
+)(CategoriesList);

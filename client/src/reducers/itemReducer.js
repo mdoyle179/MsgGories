@@ -4,23 +4,27 @@ const initialState = {
   items: [
     {
       id: uuid(),
-      name: "Eggs"
+      name: "Things Found on a Map"
     },
     {
       id: uuid(),
-      name: "Milk"
+      name: "School Supplies"
     },
     {
       id: uuid(),
-      name: "Steak"
+      name: "Reasons to Make a Phone Call"
     },
     {
       id: uuid(),
-      name: "Lechon"
+      name: "Things That Have Wheels"
     },
     {
       id: uuid(),
-      name: "Pasteles"
+      name: "Fictional Characters"
+    },
+    {
+      id: uuid(),
+      name: "Reptiles/Amphibians"
     }
   ]
 };
