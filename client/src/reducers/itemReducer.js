@@ -1,32 +1,111 @@
 import uuid from "uuid";
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from "../actions/types";
-const initialState = {
+var category1 = {
   items: [
     {
-      id: uuid(),
       name: "Things Found on a Map"
     },
     {
-      id: uuid(),
+
       name: "School Supplies"
     },
     {
-      id: uuid(),
       name: "Reasons to Make a Phone Call"
     },
     {
-      id: uuid(),
       name: "Things That Have Wheels"
     },
     {
-      id: uuid(),
       name: "Fictional Characters"
     },
     {
-      id: uuid(),
       name: "Reptiles/Amphibians"
     }
   ]
+}
+
+var category2 = {
+  items:  [
+    {
+      name: "Menu Items"
+    },
+    {
+
+      name: "Villains/Monsters"
+    },
+    {
+      name: "Street Names"
+    },
+    {
+      name: "Card Games"
+    },
+    {
+      name: "Famous Duos and Trios"
+    },
+    {
+      name: "Stones/Gems"
+    }
+  ]
+}
+
+var category3 = {
+  items:  [
+    {
+      name: "Math Terms"
+    },
+    {
+
+      name: "Things With Tails"
+    },
+    {
+      name: "Things to Do on a Date"
+    },
+    {
+      name: "Farm Animals"
+    },
+    {
+      name: "A Boy's Name"
+    },
+    {
+      name: "Items in a Suitcase"
+    }
+  ]
+}
+var msgGories = [];
+msgGories.push(category1);
+msgGories.push(category2);
+msgGories.push(category3);
+var min = 0;
+var max = 3;
+var random;
+random = Math.floor(Math.random() * (+max - +min)) + +min;
+
+var player1 = {
+  name: "Ag",
+  answer: "",
+  score: 0
+}
+
+var player2 = {
+  name: "Matt",
+  answer: "",
+  score: 0
+}
+
+var player3 = {
+  name: "Kenna",
+  answer: "",
+  score: 0
+}
+
+var players = [];
+players.push(player1);
+players.push(player2);
+players.push(player3);
+
+const initialState = {
+  items: msgGories[random].items,
+  players: players
 };
 
 export default function(state = initialState, action) {

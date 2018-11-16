@@ -20,15 +20,47 @@
   transition: opacity 1000ms ease-in;
 }
 
-body {
-  background-color: black;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  color: azure;
+@font-face {
+  font-family: "britannic";
+  src: url("./font/BRITANIC.TTF") format("truetype");
 }
 
-.overallLook {
+body {
   background-color: black;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  color: azure;
-  font-size: 18pt;
+  color: white;
+  font-family: "britannic", Arial, sans-serif;
+  font-size: 1.5em;
+  margin: 0 auto;
+}
+
+#itemList {
+  background-color: black;
+  font-family: "britannic", Arial, sans-serif;
+  width: 55%;
+  float: right;
+
+}
+
+#itemList li {
+  background-color: black;
+}
+
+#playerList {
+  background-color: black;
+  font-family: "britannic", Arial, sans-serif;
+  width: 300px;
+  position: absolute;
+float: left;
+border: 1px;
+border-style: groove; 
+}
+
+#playerList li { 
+  background-color: black;
+}
+
+#timer{
+  position: absolute;
+  bottom: 30px;
+  left: 100px
 }

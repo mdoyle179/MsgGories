@@ -16,7 +16,7 @@ class CategoriesList extends Component {
   }
 
   onDeleteClick = id => {
-    const div = document.getElementById("ElContenedor");
+    const div = document.getElementById("itemList");
     ReactDOM.render(<AppNavbar />, div);
     this.props.deleteItem(id);
     console.log("div created?" + div.id);
@@ -25,7 +25,7 @@ class CategoriesList extends Component {
   render() {
     const { items } = this.props.itemsReducerInstance;
     return (
-      <Container id="ElContenedor" className="overallLook">
+      <Container id="itemList">
         <ListGroup>
           <TransitionGroup>
             {items.map(({ id, name }) => (

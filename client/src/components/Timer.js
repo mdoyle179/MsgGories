@@ -42,7 +42,7 @@ class Timer extends React.Component {
   renderTimer() {
     if (this.state.time < 1000) return 0;
 
-    return ms(this.state.time, { compact: true });
+    return ms(this.state.time,  {secDecimalDigits:0});
   }
 
   render() {
@@ -66,7 +66,7 @@ class Timer extends React.Component {
       ) : null;
 
     return (
-      <div>
+      <div id="timer">
         <h3>timer: {this.renderTimer()}</h3>
         {start}
         {resume}
