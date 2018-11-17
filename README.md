@@ -8,6 +8,8 @@ To get Running:
 
 1. npm update
 
+1. npm run dev
+
 Useful Tools:
 1. Install React Developer Tools on your browser of preference.
 
