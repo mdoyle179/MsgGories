@@ -14,8 +14,9 @@ To get Running:
 
 1. In the .env file put the following and replace with the client id and secret key that the above link gave you
 
-1.  GMAIL_CLIENT_ID=<your_client_id>
-    GMAIL_SECRET_ID=<your_secret_id>
+1.  
+GMAIL_CLIENT_ID=<your_client_id>  
+GMAIL_SECRET_ID=<your_secret_id>
 
 1. npm run dev
 
