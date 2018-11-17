@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const items = require("./routes/api/items");
 const app = express();
+require('dotenv').config();
 
 //Body parser middleware
 app.use(bodyParser.json());
@@ -11,13 +12,18 @@ app.use(bodyParser.json());
 const db = require("./config/keys").mongoURI;
 
 //Connect to Mongo
-mongoose
-  .connect(db)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+// mongoose
+//   .connect(db)
+//   .then(() => console.log("MongoDB Connected"))
+//   .catch(err => console.log(err));
 
 const port = process.env.PORT || 5000;
 
 app.use("/api/items", items);
 
 app.listen(port, () => console.log("Server started on port " + port));
+
+const GMAIL_CLIENT_ID = process.env.GMAIL_CLIENT_ID
+const GMAIL_SECRET_ID = process.env.GMAIL_SECRET_ID
+// console.log(GMAIL_CLIENT_ID);
+// console.log(GMAIL_SECRET_ID);
