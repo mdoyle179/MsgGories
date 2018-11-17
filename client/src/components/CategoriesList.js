@@ -1,20 +1,35 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
+import { Container, ListGroup, ListGroupItem, Button, Tooltip } from "reactstrap";
 
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import uuid from "uuid";
 import { connect } from "react-redux";
 import { getItems, deleteItem, addItem } from "../actions/itemActions";
 import AppNavbar from "./AppNavbar";
+import Timer from "./Timer";
 
 import PropTypes from "prop-types";
 
 class CategoriesList extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      tooltipOpen: false
+    };
+  }
+
   componentDidMount() {
     this.props.getItems();
   }
-
+  toggle() {
+    this.setState({
+      tooltipOpen: !this.state.tooltipOpen
+    });
+  }
   onDeleteClick = id => {
     const div = document.getElementById("itemList");
     ReactDOM.render(<AppNavbar />, div);
@@ -24,13 +39,17 @@ class CategoriesList extends Component {
 
   render() {
     const { items } = this.props.itemsReducerInstance;
+    var itemIndex = 0;
     return (
-      <Container id="itemList">
+      <Container id="itemList"><div id="logoPic"></div>
+      <div id="logo">MsgGories</div>
+      <div id="stage">
         <ListGroup>
           <TransitionGroup>
             {items.map(({ id, name }) => (
               <CSSTransition key={id} timeout={500} classNames="fade">
-                <ListGroupItem className="overallLook">
+                <ListGroupItem>
+                  <div style={{display:"none"}}>{itemIndex++}</div>
                   {/* <Button
                     id="ElBoton"
                     className="remove-btn"
@@ -40,13 +59,22 @@ class CategoriesList extends Component {
                   >
                     &times;
                   </Button> */}
-                  {name}
+
+                 <input id={"inputX"+itemIndex} type="text" placeholder= {name} autofocus></input>
+                 <Tooltip className="toolTip" placement="right" isOpen={this.state.tooltipOpen} target={"inputX"+itemIndex} toggle={this.toggle}>
+                 {name}
+                </Tooltip>
+                 
                 </ListGroupItem>
               </CSSTransition>
             ))}
           </TransitionGroup>
         </ListGroup>
+        </div>
+        
+        <Timer/>
       </Container>
+      
     );
   }
 }

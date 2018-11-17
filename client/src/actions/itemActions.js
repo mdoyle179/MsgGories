@@ -1,8 +1,14 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from "../actions/types";
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS } from "../actions/types";
 
 export const getItems = () => {
   return {
     type: GET_ITEMS
+  };
+};
+
+export const getPlayers = () => {
+  return {
+    type: GET_PLAYERS
   };
 };
 

@@ -22,37 +22,53 @@
 
 @font-face {
   font-family: "britannic";
-  src: url("./font/BRITANIC.TTF") format("truetype");
+  src: url("./font/C64_Pro-STYLE.ttf") format("truetype");
 }
 
 body {
-  background-color: black;
-  color: white;
+  background-color: rgb(224, 209, 66);
+  color: black;
   font-family: "britannic", Arial, sans-serif;
-  font-size: 1.5em;
   margin: 0 auto;
 }
+
 
 #itemList {
   background-color: black;
   font-family: "britannic", Arial, sans-serif;
+  height: auto;
+  padding: 15px;
   width: 55%;
-  float: right;
+  color:white;
+  background:-webkit-linear-gradient(300deg, #f33100, #000);
+	background:-moz-linear-gradient(top, #f33100, #000);
+  background: linear-gradient(top, #f33100, #000);
+  
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;	
 
 }
 
 #itemList li {
-  background-color: black;
+  background-color:none;
+  background: none;
+  border: none;
+  padding: 10px;
 }
 
 #playerList {
   background-color: black;
   font-family: "britannic", Arial, sans-serif;
   width: 300px;
-  position: absolute;
-float: left;
+
+
 border: 1px;
-border-style: groove; 
+
 }
 
 #playerList li { 
@@ -60,7 +76,115 @@ border-style: groove;
 }
 
 #timer{
-  position: absolute;
-  bottom: 30px;
+  position: relative;
+  bottom: 5px;
   left: 100px
+}
+#game
+{
+  margin: 0px auto;
+  width: 400px;
+  height: auto;
+  padding: 15px;
+  border: black;  
+  
+  background:-webkit-linear-gradient(300deg, #f33303, #000);
+  background:-moz-linear-gradient(top, #ec6341, #000);
+  background: linear-gradient(top, #ec6341, #000);
+  
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;	
+}
+
+#stage
+{
+  margin: 0px auto;
+  width: 350px;
+  height: 350px;
+	position: relative;
+	background: black;
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+	
+	margin-bottom: 20px;
+	border: 1px solid rgb(224, 209, 66);;
+}
+
+#logo
+{
+  text-align: center;
+  font-size: 32px;
+  color: #FFBF00;
+  padding-bottom: 20px;
+  
+  text-shadow: 3px 3px lime;
+  
+  -webkit-text-stroke: 1px #000;
+  -moz-text-stroke: 1px #000;
+  text-stroke: 1px #000;
+}
+
+input
+{
+  font-size: 15px;
+  background-color: black;
+  color: #FFBF00;
+  width: 300px;
+  padding: 5px 10px;
+  border: 1px solid lime;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;	
+}
+
+button
+{
+  font-size: 15px;
+  color: #FFBF00;
+  padding: 5px 10px;
+  border: 2px solid lime;
+	
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;	
+  background: black;
+	
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+button:hover
+{
+  background-color: #FFBF00;
+  color: #000;
+}
+
+button:active
+{
+  background-color: #9e7606;
+  color: #000;
+}
+
+#root #app{
+  margin: 0 auto;
+}
+
+#logoPic
+{
+  height: 58px;
+  width: 60px;
+ float:left;
+
+  background-image: url("./img/Grog.png");
+}
+
+.toolTip{
+  font-family: "britannic", Arial, sans-serif;
 }

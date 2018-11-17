@@ -14,6 +14,7 @@ class Players extends Component {
       render() {
         const { players } = this.props.itemsReducerInstance;
         return (
+          <section id="game">
           <Container id="playerList">
             <ListGroup>
             <ListGroupItem className="overallLook">
@@ -32,6 +33,7 @@ class Players extends Component {
               </TransitionGroup>
             </ListGroup>
           </Container>
+          </section>
         );
       }
 
