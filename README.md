@@ -17,6 +17,7 @@ To get Running:
 1.  
 GMAIL_CLIENT_ID=<your_client_id>  
 GMAIL_SECRET_ID=<your_secret_id>
+GMAIL_REDIRECT_URI=<your_redirect_url>
 
 1. npm run dev
 
