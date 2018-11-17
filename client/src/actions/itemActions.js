@@ -1,4 +1,5 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS } from "../actions/types";
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS,
+   SEND_PLAYER_EMAILS, GET_PLAYER_RESPONSES } from "../actions/types";
 
 export const getItems = () => {
   return {
@@ -9,6 +10,12 @@ export const getItems = () => {
 export const getPlayers = () => {
   return {
     type: GET_PLAYERS
+  };
+};
+
+export const getPlayerResponses = () => {
+  return {
+    type: GET_PLAYER_RESPONSES
   };
 };
 

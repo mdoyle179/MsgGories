@@ -78,8 +78,23 @@ border: 1px;
 #timer{
   position: relative;
   bottom: 5px;
-  left: 100px
+  left: 100px;
+  margin: 10px;
+
 }
+
+#diceRoller{
+  position: relative;
+  bottom: 40px;
+  left: 200px;
+  /* background-image: url("./img/Die.png"); */
+  width: 150px;
+  height: 100px;
+  margin: 0 auto;
+  text-align: center;
+
+}
+
 #game
 {
   margin: 0px auto;

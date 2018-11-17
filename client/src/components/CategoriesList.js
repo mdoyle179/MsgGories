@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { getItems, deleteItem, addItem } from "../actions/itemActions";
 import AppNavbar from "./AppNavbar";
 import Timer from "./Timer";
+import DiceRoller from "./DiceRoller";
 
 import PropTypes from "prop-types";
 
@@ -73,6 +74,7 @@ class CategoriesList extends Component {
         </div>
         
         <Timer/>
+        <DiceRoller/>
       </Container>
       
     );

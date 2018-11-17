@@ -1,5 +1,5 @@
 import uuid from "uuid";
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS} from "../actions/types";
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS, GET_PLAYER_RESPONSES, SEND_PLAYER_EMAILS} from "../actions/types";
 var category1 = {
   items: [
     {
@@ -115,6 +115,11 @@ export default function(state = initialState, action) {
         ...state
       };
     case GET_PLAYERS:
+      return {
+        ...state
+      };
+
+      case GET_PLAYER_RESPONSES:
       return {
         ...state
       };
