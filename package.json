@@ -22,6 +22,6 @@
     "pretty-ms": "^4.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.6"
   }
 }

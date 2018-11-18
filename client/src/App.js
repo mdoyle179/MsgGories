@@ -15,13 +15,13 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-          <AppNavbar />
+        <div id="App">
+          {/* <AppNavbar /> */}
           <Container>
-            <ItemModal />
-            <Players/>
+            {/* <ItemModal /> */}
+            {/* <Players/> */}
             <CategoriesList />
-            <Timer />
+            {/* <Timer /> */}
           </Container>
         </div>
       </Provider>
