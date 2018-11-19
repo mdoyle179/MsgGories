@@ -32,30 +32,28 @@ body {
   margin: 0 auto;
 }
 
-
 #itemList {
   background-color: black;
   font-family: "britannic", Arial, sans-serif;
   height: auto;
   padding: 15px;
   width: 55%;
-  color:white;
-  background:-webkit-linear-gradient(300deg, #f33100, #000);
-	background:-moz-linear-gradient(top, #f33100, #000);
+  color: white;
+  background: -webkit-linear-gradient(300deg, #f33100, #000);
+  background: -moz-linear-gradient(top, #f33100, #000);
   background: linear-gradient(top, #f33100, #000);
-  
-  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-	-moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-	
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;	
 
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 
 #itemList li {
-  background-color:none;
+  background-color: none;
   background: none;
   border: none;
   padding: 10px;
@@ -70,13 +68,9 @@ body {
   background-color: black;
   font-family: "britannic", Arial, sans-serif;
 
-  padding:0px;
-  font-size: 12pt;  
+  padding: 0px;
+  font-size: 12pt;
   border: solid 10px black;
-
-
-
-
 }
 #playerList button {
   font-size: small;
@@ -86,23 +80,21 @@ body {
   border-color: gray;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
-  border-radius: 0px;	
-  border:none;
-
+  border-radius: 0px;
+  border: none;
 }
-#playerList li { 
+#playerList li {
   background-color: none;
 }
 
-#timer{
+#timer {
   position: relative;
   bottom: 5px;
   left: 100px;
   margin: 10px;
-
 }
 
-#diceRoller{
+#diceRoller {
   position: relative;
   bottom: 40px;
   right: -100px;
@@ -111,115 +103,106 @@ body {
   height: 100px;
   margin: 0 auto;
   text-align: center;
-
 }
 
-#game
-{
+#game {
   margin: 0px auto;
   width: 400px;
   height: auto;
   padding: 15px;
-  border: black;  
-  
-  background:-webkit-linear-gradient(300deg, #f33303, #000);
-  background:-moz-linear-gradient(top, #ec6341, #000);
+  border: black;
+
+  background: -webkit-linear-gradient(300deg, #f33303, #000);
+  background: -moz-linear-gradient(top, #ec6341, #000);
   background: linear-gradient(top, #ec6341, #000);
-  
+
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-  
+
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
-  border-radius: 10px;	
+  border-radius: 10px;
 }
 
-#stage
-{
+#stage {
   margin: 0px auto;
   width: 350px;
   height: 350px;
-	position: relative;
-	background: black;
+  position: relative;
+  background: black;
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-	left: -50px;
-	margin-bottom: 20px;
-	border: 1px solid rgb(224, 209, 66);;
+  left: -50px;
+  margin-bottom: 20px;
+  border: 1px solid rgb(224, 209, 66);
 }
 
-#logo
-{
+#logo {
   text-align: center;
   font-size: 32px;
-  color: #FFBF00;
+  color: #ffbf00;
   padding-bottom: 20px;
-  
+
   text-shadow: 3px 3px lime;
-  
+
   -webkit-text-stroke: 1px #000;
   -moz-text-stroke: 1px #000;
   text-stroke: 1px #000;
 }
 
-input
-{
+input {
   font-size: 15px;
   background-color: black;
-  color: #FFBF00;
+  color: #ffbf00;
   width: 300px;
   padding: 5px 10px;
   border: 1px solid lime;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;	
-}
-
-button
-{
-  font-size: 15px;
-  color: #FFBF00;
-  padding: 5px 10px;
-  border: 2px solid lime;
-	
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
-  border-radius: 10px;	
+  border-radius: 10px;
+}
+
+button {
+  font-size: 15px;
+  color: #ffbf00;
+  padding: 5px 10px;
+  border: 2px solid lime;
+
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
   background: black;
-	
+
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
 }
 
-button:hover
-{
-  background-color: #FFBF00;
+button:hover {
+  background-color: #ffbf00;
   color: #000;
 }
 
-button:active
-{
+button:active {
   background-color: #9e7606;
   color: #000;
 }
 
-#root #app{
+#root #app {
   margin: 0 auto;
 }
 
-#logoPic
-{
+#logoPic {
   height: 58px;
   width: 60px;
- float:left;
+  float: left;
 
   background-image: url("./img/Grog.png");
 }
 
-.toolTip{
+.toolTip {
   font-family: "britannic", Arial, sans-serif;
   width: 500px;
 }
@@ -227,5 +210,49 @@ button:active
 .tooltip-inner {
   max-width: 350px;
   /* If max-width does not work, try using width instead */
-  width: 350px; 
+  width: 350px;
+}
+
+#splash {
+  background-color: #000;
+}
+
+#splash .custom {
+  background-color: #000;
+  font-family: "britannic", Arial, sans-serif;
+  color: whitesmoke;
+}
+
+.modal-body {
+  background-color: #000;
+  height: 1000px;
+  width: 1000px;
+  left: -10em;
+  margin-top: 0px;
+  color: whitesmoke;
+}
+
+.modal-content {
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  background-color: transparent;
+  margin: 0px;
+  color: whitesmoke;
+}
+
+.fade {
+  background: #000;
+}
+#logoSplash {
+  text-align: center;
+  font-size: 50px;
+  color: #ffbf00;
+  padding-bottom: 20px;
+
+  text-shadow: 3px 3px lime;
+
+  -webkit-text-stroke: 1px #000;
+  -moz-text-stroke: 1px #000;
+  text-stroke: 1px #000;
 }
