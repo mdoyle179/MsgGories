@@ -217,7 +217,7 @@ button:active {
   background-color: #000;
 }
 
-#splash .custom {
+#splash .custom hr {
   background-color: #000;
   font-family: "britannic", Arial, sans-serif;
   color: whitesmoke;
@@ -225,11 +225,12 @@ button:active {
 
 .modal-body {
   background-color: #000;
-  height: 1000px;
+  height: 100%;
   width: 1000px;
   left: -10em;
   margin-top: 0px;
   color: whitesmoke;
+  overflow: hidden;
 }
 
 .modal-content {
@@ -243,6 +244,8 @@ button:active {
 
 .fade {
   background: #000;
+  height: 100%;
+  overflow: hidden;
 }
 #logoSplash {
   text-align: center;

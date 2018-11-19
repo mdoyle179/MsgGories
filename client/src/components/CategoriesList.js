@@ -101,7 +101,7 @@ class CategoriesList extends Component {
         <Timer />
         <DiceRoller />
         <Players />
-        <Splash />
+        {/* <Splash /> */}
       </Container>
     );
   }

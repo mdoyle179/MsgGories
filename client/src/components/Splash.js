@@ -69,6 +69,7 @@ class Splash extends Component {
               <span style={{ color: "lime", fontSize: "20pt" }}>
                 MAD HACKERS INC
               </span>
+              <hr />
             </div>
           </ModalBody>
         </Modal>
