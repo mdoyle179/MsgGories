@@ -3,37 +3,39 @@ import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { addItem , getItems} from "../actions/itemActions";
+import { getPlayers} from "../actions/itemActions";
 
 class Players extends Component {
     componentDidMount() {
-        this.props.getItems();
+      this.props.getPlayers();
+      const { players } = this.props.itemsReducerInstance;
+      for (var i =0; i < players.length; i++)
+      {
+        console.log(players[i]);
+      }
       }
     
     
       render() {
         const { players } = this.props.itemsReducerInstance;
         return (
-          <section id="game">
-          <Container id="playerList">
-            <ListGroup>
-            <ListGroupItem className="overallLook">
 
-                Player | Score
-                </ListGroupItem>
+          <Container id="playerList" >
+           
               <TransitionGroup>
+                <div style={{textAlign:"center", fontSize:"small"}}>Players</div>
                 {players.map(({ id, name, score }) => (
                   <CSSTransition key={id} timeout={500} classNames="fade">
-                    <ListGroupItem className="overallLook">
+                    <div>
+                    <button onClick={this.resetTimer}>{name}<span style={{marginLeft:"10px"}}>{score}</span></button> 
 
-                      {name} {score}
-                    </ListGroupItem>
+                    </div>
                   </CSSTransition>
                 ))}
               </TransitionGroup>
-            </ListGroup>
+
           </Container>
-          </section>
+
         );
       }
 
@@ -51,6 +53,6 @@ Players.propTypes = {
   
   export default connect(
     mapStateToProps,
-    { getItems }
+    { getPlayers }
   )(Players);
   

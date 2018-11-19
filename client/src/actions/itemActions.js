@@ -1,21 +1,37 @@
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS,
    SEND_PLAYER_EMAILS, GET_PLAYER_RESPONSES } from "../actions/types";
+import axios from "axios";
 
-export const getItems = () => {
-  return {
-    type: GET_ITEMS
-  };
+
+
+export const getItems = () => dispatch => {
+  axios.get("./api/items").then(res =>
+    dispatch({
+      type: GET_ITEMS,
+      payload: res.data
+    })
+  );
 };
 
-export const getPlayers = () => {
-  return {
-    type: GET_PLAYERS
-  };
+export const getPlayers= () => dispatch => {
+  axios.get("./api/items/players").then(res =>
+    dispatch({
+      type: GET_PLAYERS,
+      payload: res.data
+    })
+  );
 };
+
 
 export const getPlayerResponses = () => {
   return {
     type: GET_PLAYER_RESPONSES
+  };
+};
+
+export const sendPLayerEmails = () => {
+  return {
+    type: SEND_PLAYER_EMAILS
   };
 };
 

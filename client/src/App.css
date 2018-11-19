@@ -62,17 +62,36 @@ body {
 }
 
 #playerList {
+  position: relative;
+  float: right;
+  right: -16px;
+  top: -550px;
+  width: 158px;
   background-color: black;
   font-family: "britannic", Arial, sans-serif;
-  width: 300px;
+
+  padding:0px;
+  font-size: 12pt;  
+  border: solid 10px black;
 
 
-border: 1px;
+
 
 }
+#playerList button {
+  font-size: small;
+  background-color: none;
+  min-width: 148px;
+  color: gray;
+  border-color: gray;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;	
+  border:none;
 
+}
 #playerList li { 
-  background-color: black;
+  background-color: none;
 }
 
 #timer{
@@ -86,7 +105,7 @@ border: 1px;
 #diceRoller{
   position: relative;
   bottom: 40px;
-  left: 200px;
+  right: -100px;
   /* background-image: url("./img/Die.png"); */
   width: 150px;
   height: 100px;
@@ -126,7 +145,7 @@ border: 1px;
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-	
+	left: -50px;
 	margin-bottom: 20px;
 	border: 1px solid rgb(224, 209, 66);;
 }
@@ -202,4 +221,11 @@ button:active
 
 .toolTip{
   font-family: "britannic", Arial, sans-serif;
+  width: 500px;
+}
+
+.tooltip-inner {
+  max-width: 350px;
+  /* If max-width does not work, try using width instead */
+  width: 350px; 
 }

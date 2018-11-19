@@ -98,25 +98,27 @@ var player3 = {
   score: 0
 }
 
-var players = [];
-players.push(player1);
-players.push(player2);
-players.push(player3);
+// var players = [];
+// players.push(player1);
+// players.push(player2);
+// players.push(player3);
 
 const initialState = {
   items: msgGories[random].items,
-  players: players
+  players: []
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_ITEMS:
       return {
-        ...state
+        ...state,
+        players: action.payload
       };
     case GET_PLAYERS:
       return {
-        ...state
+        ...state,
+        players: action.payload
       };
 
       case GET_PLAYER_RESPONSES:

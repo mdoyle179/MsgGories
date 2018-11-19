@@ -5,31 +5,48 @@ import { Container, ListGroup, ListGroupItem, Button, Tooltip } from "reactstrap
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import uuid from "uuid";
 import { connect } from "react-redux";
-import { getItems, deleteItem, addItem } from "../actions/itemActions";
+import { getItems, deleteItem, addItem, getPlayers } from "../actions/itemActions";
 import AppNavbar from "./AppNavbar";
 import Timer from "./Timer";
 import DiceRoller from "./DiceRoller";
 
 import PropTypes from "prop-types";
+import Players from "./Players";
 
 class CategoriesList extends Component {
 
   constructor(props) {
     super(props);
+    const { items } = this.props.itemsReducerInstance;
 
+ 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      tooltipOpen: false
+      tooltipOpen: false,
+      toolTips: {}
     };
+    for (var i=0; i < items.length; i++ )
+    {
+      this.state.toolTips["inputX"+i]=false;
+    }
   }
 
   componentDidMount() {
     this.props.getItems();
+    this.props.getPlayers();
+
+
+    
+
   }
-  toggle() {
+  toggle(agID) {
+   
+      this.state.toolTips[agID.srcElement.id] = !this.state.toolTips[agID.srcElement.id];
+    console.log(agID.srcElement.id);
+    console.log(this.state.toolTips[agID.srcElement.id]);
     this.setState({
-      tooltipOpen: !this.state.tooltipOpen
-    });
+       toolTips:  this.state.toolTips
+     });
   }
   onDeleteClick = id => {
     const div = document.getElementById("itemList");
@@ -40,6 +57,7 @@ class CategoriesList extends Component {
 
   render() {
     const { items } = this.props.itemsReducerInstance;
+
     var itemIndex = 0;
     return (
       <Container id="itemList"><div id="logoPic"></div>
@@ -47,10 +65,12 @@ class CategoriesList extends Component {
       <div id="stage">
         <ListGroup>
           <TransitionGroup>
-            {items.map(({ id, name }) => (
+            {
+  
+              items.map(({ id, name }) => (
               <CSSTransition key={id} timeout={500} classNames="fade">
                 <ListGroupItem>
-                  <div style={{display:"none"}}>{itemIndex++}</div>
+
                   {/* <Button
                     id="ElBoton"
                     className="remove-btn"
@@ -61,11 +81,12 @@ class CategoriesList extends Component {
                     &times;
                   </Button> */}
 
-                 <input id={"inputX"+itemIndex} type="text" placeholder= {name} autofocus></input>
-                 <Tooltip className="toolTip" placement="right" isOpen={this.state.tooltipOpen} target={"inputX"+itemIndex} toggle={this.toggle}>
+                 {/* <input id={"inputX"+itemIndex} type="text" placeholder= {name} autofocus></input>
+
+                 <Tooltip id={"tooltip" + itemIndex} className="toolTip" placement="right" isOpen={this.state.toolTips["inputX"+itemIndex]} target={"inputX"+itemIndex} toggle= {this.toggle}/> */}
                  {name}
-                </Tooltip>
-                 
+              
+                <div style={{display:"none"}}>{itemIndex++}</div>
                 </ListGroupItem>
               </CSSTransition>
             ))}
@@ -75,6 +96,7 @@ class CategoriesList extends Component {
         
         <Timer/>
         <DiceRoller/>
+        <Players/>
       </Container>
       
     );
@@ -92,5 +114,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems, deleteItem, addItem }
+  { getItems, deleteItem, addItem, getPlayers }
 )(CategoriesList);

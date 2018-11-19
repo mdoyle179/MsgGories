@@ -12,6 +12,21 @@ router.get("/", (req, res) => {
     .then(items => res.json(items));
 });
 
+router.get("/players", (req, res) => {
+
+  var players = [];
+  var player1 = {name:"Ag", score:0};
+  var player2= {name:"Matt", score:0};
+  var player3 = {name:"Kenna", score:0};
+  players.push(player1);
+  players.push(player2);
+  players.push(player3);
+  res.json(players);
+  console.log(players);
+
+
+});
+
 // @route POST api/items
 // @desc Create Post
 router.post("/", (req, res) => {

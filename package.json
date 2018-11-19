@@ -13,6 +13,7 @@
   "author": "Ag",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
     "dotenv": "^6.1.0",

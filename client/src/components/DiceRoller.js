@@ -16,9 +16,8 @@ import { addItem } from "../actions/itemActions";
 
 class DiceRoller extends Component {
   state = {
-    letter: ""
+    letter: "_"
   };
-
 
   generateLetter = () => {
     var min = 64;
