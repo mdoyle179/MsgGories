@@ -95,7 +95,7 @@ class CategoriesList extends Component {
         </div>
         
         <Timer/>
-        <DiceRoller/>
+        {/* <DiceRoller/> */}
         <Players/>
       </Container>
       
