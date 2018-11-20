@@ -1,52 +1,58 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { Container, ListGroup, ListGroupItem, Button, Tooltip } from "reactstrap";
+import {
+  Container,
+  ListGroup,
+  ListGroupItem,
+  Button,
+  Tooltip
+} from "reactstrap";
 
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import uuid from "uuid";
 import { connect } from "react-redux";
-import { getItems, deleteItem, addItem, getPlayers } from "../actions/itemActions";
+import {
+  getItems,
+  deleteItem,
+  addItem,
+  getPlayers
+} from "../actions/itemActions";
 import AppNavbar from "./AppNavbar";
 import Timer from "./Timer";
 import DiceRoller from "./DiceRoller";
 
 import PropTypes from "prop-types";
 import Players from "./Players";
+import Splash from "./Splash";
 
 class CategoriesList extends Component {
-
   constructor(props) {
     super(props);
     const { items } = this.props.itemsReducerInstance;
 
- 
     this.toggle = this.toggle.bind(this);
     this.state = {
       tooltipOpen: false,
       toolTips: {}
     };
-    for (var i=0; i < items.length; i++ )
-    {
-      this.state.toolTips["inputX"+i]=false;
+    for (var i = 0; i < items.length; i++) {
+      this.state.toolTips["inputX" + i] = false;
     }
   }
 
   componentDidMount() {
     this.props.getItems();
     this.props.getPlayers();
-
-
-    
-
   }
   toggle(agID) {
-   
-      this.state.toolTips[agID.srcElement.id] = !this.state.toolTips[agID.srcElement.id];
+    this.state.toolTips[agID.srcElement.id] = !this.state.toolTips[
+      agID.srcElement.id
+    ];
     console.log(agID.srcElement.id);
     console.log(this.state.toolTips[agID.srcElement.id]);
     this.setState({
-       toolTips:  this.state.toolTips
-     });
+      toolTips: this.state.toolTips
+    });
   }
   onDeleteClick = id => {
     const div = document.getElementById("itemList");
@@ -60,18 +66,16 @@ class CategoriesList extends Component {
 
     var itemIndex = 0;
     return (
-      <Container id="itemList"><div id="logoPic"></div>
-      <div id="logo">MsgGories</div>
-      <div id="stage">
-        <ListGroup>
-          <TransitionGroup>
-            {
-  
-              items.map(({ id, name }) => (
-              <CSSTransition key={id} timeout={500} classNames="fade">
-                <ListGroupItem>
-
-                  {/* <Button
+      <Container id="itemList">
+        <div id="logoPic" />
+        <div id="logo">MsgGories</div>
+        <div id="stage">
+          <ListGroup>
+            <TransitionGroup>
+              {items.map(({ id, name }) => (
+                <CSSTransition key={id} timeout={500} classNames="fade">
+                  <ListGroupItem>
+                    {/* <Button
                     id="ElBoton"
                     className="remove-btn"
                     color="danger"
@@ -81,24 +85,24 @@ class CategoriesList extends Component {
                     &times;
                   </Button> */}
 
-                 {/* <input id={"inputX"+itemIndex} type="text" placeholder= {name} autofocus></input>
+                    {/* <input id={"inputX"+itemIndex} type="text" placeholder= {name} autofocus></input>
 
                  <Tooltip id={"tooltip" + itemIndex} className="toolTip" placement="right" isOpen={this.state.toolTips["inputX"+itemIndex]} target={"inputX"+itemIndex} toggle= {this.toggle}/> */}
-                 {name}
-              
-                <div style={{display:"none"}}>{itemIndex++}</div>
-                </ListGroupItem>
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
-        </ListGroup>
+                    {name}
+
+                    <div style={{ display: "none" }}>{itemIndex++}</div>
+                  </ListGroupItem>
+                </CSSTransition>
+              ))}
+            </TransitionGroup>
+          </ListGroup>
         </div>
-        
-        <Timer/>
-        {/* <DiceRoller/> */}
-        <Players/>
+
+        <Timer />
+        <DiceRoller />
+        <Players />
+        {/* <Splash /> */}
       </Container>
-      
     );
   }
 }
