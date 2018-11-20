@@ -44,12 +44,12 @@ class CategoriesList extends Component {
     this.props.getItems();
     this.props.getPlayers();
   }
-  toggle(agID) {
-    this.state.toolTips[agID.srcElement.id] = !this.state.toolTips[
-      agID.srcElement.id
+  toggle(event) {
+    this.state.toolTips[event.srcElement.id] = !this.state.toolTips[
+      event.srcElement.id
     ];
-    console.log(agID.srcElement.id);
-    console.log(this.state.toolTips[agID.srcElement.id]);
+    console.log(event.srcElement.id);
+    console.log(this.state.toolTips[event.srcElement.id]);
     this.setState({
       toolTips: this.state.toolTips
     });
@@ -85,10 +85,10 @@ class CategoriesList extends Component {
                     &times;
                   </Button> */}
 
-                    {/* <input id={"inputX"+itemIndex} type="text" placeholder= {name} autofocus></input>
+                     <input id={"inputX"+itemIndex} type="text" placeholder= {name} autofocus></input>
 
-                 <Tooltip id={"tooltip" + itemIndex} className="toolTip" placement="right" isOpen={this.state.toolTips["inputX"+itemIndex]} target={"inputX"+itemIndex} toggle= {this.toggle}/> */}
-                    {name}
+                 <Tooltip id={"tooltip" + itemIndex} className="toolTip" placement="right" isOpen={this.state.toolTips["inputX"+itemIndex]} target={"inputX"+itemIndex} toggle= {this.toggle}/> 
+                     {/* {name}  */}
 
                     <div style={{ display: "none" }}>{itemIndex++}</div>
                   </ListGroupItem>
@@ -101,7 +101,6 @@ class CategoriesList extends Component {
         <Timer />
         <DiceRoller />
         <Players />
-        {/* <Splash /> */}
       </Container>
     );
   }
