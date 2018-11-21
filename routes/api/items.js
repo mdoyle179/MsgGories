@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const {google} = require('googleapis');
+const fs = require('fs');
+const readline = require('readline');
 
 //Item Model
 const Item = require("../../models/Item");
@@ -45,4 +48,46 @@ router.delete("/:id", (req, res) => {
     .catch(err => res.status(404).json({ success: false }));
 });
 
+router.get("/sendMessage", (req, res) => {
+
+  console.log("sendMessage");
+  
+  // Imports the Google Cloud client library.
+  const {Storage} = require('@google-cloud/storage');
+
+  // Instantiates a client. If you don't specify credentials when constructing
+  // the client, the client library will look for credentials in the
+  // environment.
+  const storage = new Storage();
+
+  let response = runSample();
+  console.log("response = " + response);
+  // Makes an authenticated API request.
+  // storage
+  //   .getBuckets()
+  //   .then((results) => {
+  //     const buckets = results[0];
+
+  //     console.log('Buckets:');
+  //     buckets.forEach((bucket) => {
+  //       console.log(bucket.name);
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     console.error('ERROR:', err);
+  //   });
+
+});
+
+async function runSample() {
+  const auth1 = await google.auth.getClient({
+    scopes: ['https://www.googleapis.com/auth/gmail.readonly']
+  });
+  
+  const gmail = google.gmail({version: 'v1', auth: auth1});
+  
+  const response = await gmail.users.messages.list({userId: 'me'});
+  console.log(res.data);
+  return res.data;
+}
 module.exports = router;

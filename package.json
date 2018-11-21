@@ -13,6 +13,7 @@
   "author": "Ag",
   "license": "MIT",
   "dependencies": {
+    "@google-cloud/storage": "^2.3.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
