@@ -72,6 +72,7 @@ class Timer extends React.Component {
         {resume}
         {stop}
         {reset}
+        {/* <button>GetPlayers</button> */}
       </div>
     );
   }

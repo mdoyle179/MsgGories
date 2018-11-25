@@ -63,7 +63,7 @@ body {
   position: relative;
   float: right;
   right: -16px;
-  top: -550px;
+  top: -450px;
   width: 158px;
   background-color: black;
   font-family: "britannic", Arial, sans-serif;
@@ -217,7 +217,7 @@ button:active {
   background-color: #000;
 }
 
-#splash .custom hr {
+#splash  hr {
   background-color: #000;
   font-family: "britannic", Arial, sans-serif;
   color: whitesmoke;
@@ -259,3 +259,4 @@ button:active {
   -moz-text-stroke: 1px #000;
   text-stroke: 1px #000;
 }
+
