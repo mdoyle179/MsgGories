@@ -8,16 +8,7 @@ To get Running:
 
 1. npm update
 
-1. Create a file called .env in the root directory
-
-1. Go to https://developers.google.com/gmail/api/quickstart/nodejs and Enable the Gmail API
-
-1. In the .env file put the following and replace with the client id and secret key that the above link gave you
-
-1.  
-GMAIL_CLIENT_ID=<your_client_id>  
-GMAIL_SECRET_ID=<your_secret_id>
-GMAIL_REDIRECT_URI=<your_redirect_url>
+1. Put the credentials.json and token.json file in the root directory. If you need to generate the credentials.json file, follow the instructions here and use your own gmail account: https://developers.google.com/gmail/api/quickstart/nodejs?authuser=2 . The token.json will be generated when you authorize the first time.
 
 1. npm run dev
 
