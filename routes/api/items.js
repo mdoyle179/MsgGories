@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
-
-//Item Model
 const Item = require("../../models/Item");
 const GmailAuth = require("./gmailAuth");
 const {google} = require('googleapis');
-const gmailAuth = new GmailAuth();
-
+const Base64 = require('js-base64').Base64;
 const fs = require('fs');
+
+const gmailAuth = new GmailAuth();
 
 // @route GET api/items
 // @desc Get All Items
@@ -55,32 +54,37 @@ router.get("/sendMessage", (req, res) => {
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Gmail API.
-    gmailAuth.authorize(JSON.parse(content), listLabels);
+    gmailAuth.authorize(JSON.parse(content), sendEmail);
   });
 });
 
-   /**
-* Lists the labels in the user's account.
-*
-* @param {google.auth.OAuth2} auth An authorized OAuth2 client.
-*/
-function listLabels(auth) {
- console.log('in listlabels');
- const gmail = google.gmail({version: 'v1', auth});
- gmail.users.labels.list({
-   userId: 'me',
- }, (err, res) => {
-   if (err) return console.log('The API returned an error: ' + err);
-   const labels = res.data.labels;
-   if (labels.length) {
-     console.log('Labels:');
-     labels.forEach((label) => {
-       console.log(`- ${label.name}`);
-     });
-   } else {
-     console.log('No labels found.');
-   }
- });
+function sendEmail(auth) {
+  let userId = "me";
+  let emailTo = "msggories@gmail.com";
+  let subject = "test subject";
+  let email = ["Content-Type: text/plain; charset=\"UTF-8\"\n",
+    "MIME-Version: 1.0\n",
+    "Content-Transfer-Encoding: 7bit\n",
+    "to: ", emailTo, "\n",
+    "from: ", userId, "\n",
+    "subject: ", subject, "\n\n",
+    "content of body"
+  ].join('');
+
+  const gmail = google.gmail({version: 'v1', auth});
+  let base64EncodedEmail = Base64.encodeURI(email);
+
+  gmail.users.messages.send({
+    'userId': userId,
+    'resource': {
+      'raw': base64EncodedEmail
+    }
+  }, (err, res) => {
+    if (err) return console.log('The API returned an error: ' + err);
+    else {
+      console.log("Sent message");
+    }
+  });
 }
 
 module.exports = router;
