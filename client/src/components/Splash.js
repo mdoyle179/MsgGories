@@ -3,7 +3,6 @@ import uuid from "uuid";
 import logo from "../img/AgtivisionCropped.png";
 import {
   Modal,
-  ModalHeader,
   ModalBody
 
 } from "reactstrap";
@@ -29,37 +28,17 @@ class Splash extends Component {
     });
   };
 
-  onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onSubmit = e => {
-    e.preventDefault();
-    const newItem = {
-      id: uuid(),
-      name: this.state.name
-    };
-
-    this.props.addItem(newItem);
-  };
 
   render() {
-    const { letter } = this.state;
     return (
       <div id="splash">
-        {/* <Button
-          color="dark"
-          style={{ marginBottom: "2rem" }}
-          onClick={this.toggle}
-        >
-          Debug Splash
-        </Button> */}
+
         <Modal isOpen={this.state.modal} modalTransition={{ timeout: 1 }} backdropTransition={{ timeout: 1 }} >
           <ModalBody>
           <TransitionGroup>
-          <CSSTransition id="Aggie" timeout={4000} classNames="fade">
+          <CSSTransition id="splashTransition" timeout={4000} classNames="fade">
             <div style={{ textAlign: "center", margin: "10px" }}>
-              <img src={logo} />
+              <img src={logo} alt="Grog!"/>
             </div>
             </CSSTransition>
             <h2 style={{ textAlign: "center" }}>Presents</h2>

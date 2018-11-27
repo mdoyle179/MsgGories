@@ -47,7 +47,7 @@ class Timer extends React.Component {
 
   render() {
     let start =
-      this.state.time == 0 ? (
+      this.state.time === 0 ? (
         <button onClick={this.startTimer}>Start Game!</button>
       ) : null;
 
@@ -56,12 +56,12 @@ class Timer extends React.Component {
     ) : null;
 
     let reset =
-      this.state.time != 0 && !this.state.isOn ? (
+      this.state.time !== 0 && !this.state.isOn ? (
         <button onClick={this.resetTimer}>Reset</button>
       ) : null;
 
     let resume =
-      this.state.time != 0 && !this.state.isOn ? (
+      this.state.time !== 0 && !this.state.isOn ? (
         <button onClick={this.startTimer}>Resume</button>
       ) : null;
 

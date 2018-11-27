@@ -1,16 +1,4 @@
 import React, { Component } from "react";
-import uuid from "uuid";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  Form,
-  FormGroup,
-  Label,
-  Input
-} from "reactstrap";
-
 import { connect } from "react-redux";
 import { addItem } from "../actions/itemActions";
 
@@ -29,7 +17,7 @@ class DiceRoller extends Component {
     while (!letterIsGood) {
       random = Math.floor(Math.random() * (+max - +min)) + +min;
       console.log(random);
-      if (random > 64 && random < 85 && random != 81) {
+      if (random > 64 && random < 85 && random !== 81) {
         letterIsGood = true;
       }
     }
@@ -37,9 +25,7 @@ class DiceRoller extends Component {
     this.setState({ letter: letter });
   };
 
-  onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+
 
   render() {
     const { letter } = this.state;

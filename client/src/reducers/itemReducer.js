@@ -1,5 +1,4 @@
-import uuid from "uuid";
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS, GET_PLAYER_RESPONSES, SEND_PLAYER_EMAILS} from "../actions/types";
+import { GET_ITEMS, GET_PLAYERS, GET_PLAYER_RESPONSES, SEND_PLAYER_EMAILS } from "../actions/types";
 var category1 = {
   items: [
     {
@@ -25,7 +24,7 @@ var category1 = {
 }
 
 var category2 = {
-  items:  [
+  items: [
     {
       name: "Menu Items"
     },
@@ -49,7 +48,7 @@ var category2 = {
 }
 
 var category3 = {
-  items:  [
+  items: [
     {
       name: "Math Terms"
     },
@@ -80,35 +79,12 @@ var max = 3;
 var random;
 random = Math.floor(Math.random() * (+max - +min)) + +min;
 
-var player1 = {
-  name: "Ag",
-  answer: "",
-  score: 0
-}
-
-var player2 = {
-  name: "Matt",
-  answer: "",
-  score: 0
-}
-
-var player3 = {
-  name: "Kenna",
-  answer: "",
-  score: 0
-}
-
-// var players = [];
-// players.push(player1);
-// players.push(player2);
-// players.push(player3);
-
 const initialState = {
   items: msgGories[random].items,
   players: []
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case GET_ITEMS:
       return {
@@ -121,20 +97,11 @@ export default function(state = initialState, action) {
         players: action.payload
       };
 
-      case GET_PLAYER_RESPONSES:
+    case GET_PLAYER_RESPONSES:
       return {
         ...state
       };
-    case DELETE_ITEM:
-      return {
-        ...state,
-        items: state.items.filter(item => item.id !== action.payload)
-      };
-    case ADD_ITEM:
-      return {
-        ...state,
-        items: [action.payload, ...state.items]
-      };
+
     default:
       return state;
   }
