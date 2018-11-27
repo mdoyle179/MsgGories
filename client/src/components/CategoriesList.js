@@ -17,6 +17,7 @@ import Timer from "./Timer";
 import DiceRoller from "./DiceRoller";
 import PropTypes from "prop-types";
 import Players from "./Players";
+import {GET_ITEMS} from "../actions/types"
 
 class CategoriesList extends Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class CategoriesList extends Component {
     this.props.getItems();
     this.props.getPlayers();
   }
+  
   toggle(event) {
 
     var tooltipArray = this.state.toolTips;
@@ -50,6 +52,21 @@ class CategoriesList extends Component {
     });
   }
 
+renderCategoryItem = (name, itemIndex) => {
+  const { action } = this.props.itemsReducerInstance;
+    if (action === GET_ITEMS)
+    {
+      return (
+      <Tooltip id={"tooltip" + itemIndex} className="toolTip" placement="right" isOpen={this.state.toolTips["inputX" + itemIndex]} target={"inputX" + itemIndex} toggle={this.toggle}> */}
+      {name} 
+      </Tooltip>
+      );
+    }
+    else{
+      return <input id={"inputX" + itemIndex} type="text" placeholder={name} autofocus></input>;
+    }
+                
+}
 
   render() {
     const { items } = this.props.itemsReducerInstance;

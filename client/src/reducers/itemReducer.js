@@ -81,7 +81,8 @@ random = Math.floor(Math.random() * (+max - +min)) + +min;
 
 const initialState = {
   items: msgGories[random].items,
-  players: []
+  players: [],
+  action: ""
 };
 
 export default function (state = initialState, action) {
@@ -89,12 +90,14 @@ export default function (state = initialState, action) {
     case GET_ITEMS:
       return {
         ...state,
-        players: action.payload
+        players: action.payload,
+        action: action.type
       };
     case GET_PLAYERS:
       return {
         ...state,
-        players: action.payload
+        players: action.payload,
+        action: action.type
       };
 
     case GET_PLAYER_RESPONSES:
