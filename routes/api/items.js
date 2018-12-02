@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const GmailAuth = require("./gmailAuth");
+const GmailAuth = require("../../models/gmailAuth");
 const {google} = require('googleapis');
 const Base64 = require('js-base64').Base64;
 const fs = require('fs');
