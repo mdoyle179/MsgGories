@@ -4,7 +4,6 @@ const GmailHelper = require("../../models/gmailHelper");
 const fs = require('fs');
 
 const gmailHelper = new GmailHelper();
-// const gmail;
 
 // @route GET api/items
 // @desc Get All Items
@@ -13,15 +12,15 @@ router.get("/", (req, res) => {
 });
 
 router.get("/players", (req, res) => {
-  var players = [];
-  var player1 = {name:"Ag", score:0};
-  var player2= {name:"Matt", score:0};
-  var player3 = {name:"Kenna", score:0};
-  players.push(player1);
-  players.push(player2);
-  players.push(player3);
-  res.json(players);
-  console.log(players);
+    var players = [];
+    var player1 = { name: "Ag", score: 0 };
+    var player2 = { name: "Matt", score: 0 };
+    var player3 = { name: "Kenna", score: 0 };
+    players.push(player1);
+    players.push(player2);
+    players.push(player3);
+    res.json(players);
+    console.log(players);
 });
 
 // @route POST api/items
@@ -36,24 +35,35 @@ router.delete("/:id", (req, res) => {
 
 });
 
-// @route Sends the email to the players
-// @desc Delete Item
+// @desc Sends the email to the players
 router.get("/sendMessage", (req, res) => {
-  console.log('in send message');
-  // Load client secrets from a local file.
-  fs.readFile('credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
-    // Authorize a client with credentials, then call the Gmail API.
-    gmailHelper.authorize(JSON.parse(content), sendEmail);
-  });
+    authorize(sendEmail);
 });
 
-function sendEmail(auth) {
-  let categories = ["Boy Names", "People", "Country", "Food"];
-  let content = gmailHelper.createContentTable(categories);
-  let email = gmailHelper.createEmail(content)
+// @desc Gets the emails from the players
+router.get("/getMessages", (req, res) => {
+    authorize(readEmails);
+});
 
-  gmailHelper.sendEmail(auth, email);
+function authorize(callback) {
+    // Load client secrets from a local file.
+    fs.readFile('credentials.json', (err, content) => {
+        if (err) return console.log('Error loading client secret file:', err);
+        // Authorize a client with credentials, then call the Gmail API.
+        gmailHelper.authorize(JSON.parse(content), callback);
+    });
+}
+
+function sendEmail(auth) {
+    let categories = ["Boy Names", "People", "Country", "Food"];
+    let content = gmailHelper.createContentTable(categories);
+    let email = gmailHelper.createEmail(content)
+
+    gmailHelper.sendEmail(auth, email);
+}
+
+function readEmails(auth) {
+    gmailHelper.readEmails(auth);
 }
 
 module.exports = router;
