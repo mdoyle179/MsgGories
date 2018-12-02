@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const GmailHelper = require("../../models/gmailHelper");
-const {google} = require('googleapis');
-const Base64 = require('js-base64').Base64;
 const fs = require('fs');
 
 const gmailHelper = new GmailHelper();
@@ -51,26 +49,11 @@ router.get("/sendMessage", (req, res) => {
 });
 
 function sendEmail(auth) {
-  let userId = "me";
-
   let categories = ["Boy Names", "People", "Country", "Food"];
   let content = gmailHelper.createContentTable(categories);
   let email = gmailHelper.createEmail(content)
 
-  const gmail = google.gmail({version: 'v1', auth});
-  let base64EncodedEmail = Base64.encodeURI(email);
-
-  gmail.users.messages.send({
-    'userId': userId,
-    'resource': {
-      'raw': base64EncodedEmail
-    }
-  }, (err, res) => {
-    if (err) return console.log('The API returned an error: ' + err);
-    else {
-      console.log("Sent message");
-    }
-  });
+  gmailHelper.sendEmail(auth, email);
 }
 
 module.exports = router;

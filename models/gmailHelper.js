@@ -1,6 +1,7 @@
 const readline = require('readline');
 const {google} = require('googleapis');
 const fs = require('fs');
+const Base64 = require('js-base64').Base64;
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.send', 'https://www.googleapis.com/auth/gmail.compose'];
@@ -91,8 +92,25 @@ class GmailHelper {
           content +
       "</body></html>"
     ].join('');
+    let base64EncodedEmail = Base64.encodeURI(email);
+    return base64EncodedEmail;
+  }
 
-    return email;
+  sendEmail(auth, email) {
+    const gmail = google.gmail({version: 'v1', auth});
+    let userId = "me";
+
+    gmail.users.messages.send({
+      'userId': userId,
+      'resource': {
+        'raw': email
+      }
+    }, (err, res) => {
+      if (err) return console.log('The API returned an error: ' + err);
+      else {
+        console.log("Sent message");
+      }
+    });
   }
   // put round number in sent message
   // use list https://developers.google.com/gmail/api/v1/reference/users/messages/list to get messages
