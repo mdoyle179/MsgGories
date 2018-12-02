@@ -53,13 +53,20 @@ function sendEmail(auth) {
   let userId = "me";
   let emailTo = "msggories@gmail.com";
   let subject = "test subject";
-  let email = ["Content-Type: text/plain; charset=\"UTF-8\"\n",
+
+  let categories = ["Boy Names", "People", "Country", "Food"];
+  let content = createTable(categories);
+
+  let email = [
+    "Content-Type: text/html; charset=\"UTF-8\"\n",
     "MIME-Version: 1.0\n",
-    "Content-Transfer-Encoding: 7bit\n",
+    "Content-Transfer-Encoding: base64\n",
     "to: ", emailTo, "\n",
     "from: ", userId, "\n",
     "subject: ", subject, "\n\n",
-    "content of body"
+    "<html><body>" +
+        content +
+    "</body></html>"
   ].join('');
 
   const gmail = google.gmail({version: 'v1', auth});
@@ -77,5 +84,23 @@ function sendEmail(auth) {
     }
   });
 }
+
+function createTable(categories) {
+  let content = "";
+  content += "<html><body>";
+  content += "<table width='100%'><tr><td>"; // Outer table
+  content += "<table width='60%'>"; // Nested table
+
+  // content += "<tr><td width='70%'>So is this</td><td width='30%'>9999</td></tr>";
+  content += "</table>";
+  content += "</td></tr></table>";
+  content += "</body></html>";
+  for (let i = 0; i < categories.length; i++){
+    content += "<tr><td width='40%'>" + categories[i] + "</td><td width='60%'>__________</td></tr>";
+  }
+  return content;
+}
+// put round number in sent message
+// use list https://developers.google.com/gmail/api/v1/reference/users/messages/list to get messages
 
 module.exports = router;
