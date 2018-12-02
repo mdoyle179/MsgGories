@@ -60,7 +60,7 @@ class GmailHelper {
       });
     });
   }
-  createTable(categories) {
+  createContentTable(categories) {
     let content = "";
     content += "<html><body>";
     content += "<table width='100%'><tr><td>"; // Outer table
@@ -74,6 +74,25 @@ class GmailHelper {
       content += "<tr><td width='40%'>" + categories[i] + "</td><td width='60%'>__________</td></tr>";
     }
     return content;
+  }
+  createEmail(content){
+    let userId = "me";
+    let emailTo = "msggories@gmail.com";
+    let subject = "test subject";
+
+    let email = [
+      "Content-Type: text/html; charset=\"UTF-8\"\n",
+      "MIME-Version: 1.0\n",
+      "Content-Transfer-Encoding: base64\n",
+      "to: ", emailTo, "\n",
+      "from: ", userId, "\n",
+      "subject: ", subject, "\n\n",
+      "<html><body>" +
+          content +
+      "</body></html>"
+    ].join('');
+
+    return email;
   }
   // put round number in sent message
   // use list https://developers.google.com/gmail/api/v1/reference/users/messages/list to get messages

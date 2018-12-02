@@ -6,6 +6,7 @@ const Base64 = require('js-base64').Base64;
 const fs = require('fs');
 
 const gmailHelper = new GmailHelper();
+// const gmail;
 
 // @route GET api/items
 // @desc Get All Items
@@ -51,23 +52,10 @@ router.get("/sendMessage", (req, res) => {
 
 function sendEmail(auth) {
   let userId = "me";
-  let emailTo = "msggories@gmail.com";
-  let subject = "test subject";
 
   let categories = ["Boy Names", "People", "Country", "Food"];
-  let content = gmailHelper.createTable(categories);
-
-  let email = [
-    "Content-Type: text/html; charset=\"UTF-8\"\n",
-    "MIME-Version: 1.0\n",
-    "Content-Transfer-Encoding: base64\n",
-    "to: ", emailTo, "\n",
-    "from: ", userId, "\n",
-    "subject: ", subject, "\n\n",
-    "<html><body>" +
-        content +
-    "</body></html>"
-  ].join('');
+  let content = gmailHelper.createContentTable(categories);
+  let email = gmailHelper.createEmail(content)
 
   const gmail = google.gmail({version: 'v1', auth});
   let base64EncodedEmail = Base64.encodeURI(email);
