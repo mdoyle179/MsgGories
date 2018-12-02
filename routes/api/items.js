@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const GmailAuth = require("../../models/gmailAuth");
+const GmailHelper = require("../../models/gmailHelper");
 const {google} = require('googleapis');
 const Base64 = require('js-base64').Base64;
 const fs = require('fs');
 
-const gmailAuth = new GmailAuth();
+const gmailHelper = new GmailHelper();
 
 // @route GET api/items
 // @desc Get All Items
@@ -45,7 +45,7 @@ router.get("/sendMessage", (req, res) => {
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Gmail API.
-    gmailAuth.authorize(JSON.parse(content), sendEmail);
+    gmailHelper.authorize(JSON.parse(content), sendEmail);
   });
 });
 
@@ -55,7 +55,7 @@ function sendEmail(auth) {
   let subject = "test subject";
 
   let categories = ["Boy Names", "People", "Country", "Food"];
-  let content = createTable(categories);
+  let content = gmailHelper.createTable(categories);
 
   let email = [
     "Content-Type: text/html; charset=\"UTF-8\"\n",
@@ -84,23 +84,5 @@ function sendEmail(auth) {
     }
   });
 }
-
-function createTable(categories) {
-  let content = "";
-  content += "<html><body>";
-  content += "<table width='100%'><tr><td>"; // Outer table
-  content += "<table width='60%'>"; // Nested table
-
-  // content += "<tr><td width='70%'>So is this</td><td width='30%'>9999</td></tr>";
-  content += "</table>";
-  content += "</td></tr></table>";
-  content += "</body></html>";
-  for (let i = 0; i < categories.length; i++){
-    content += "<tr><td width='40%'>" + categories[i] + "</td><td width='60%'>__________</td></tr>";
-  }
-  return content;
-}
-// put round number in sent message
-// use list https://developers.google.com/gmail/api/v1/reference/users/messages/list to get messages
 
 module.exports = router;
