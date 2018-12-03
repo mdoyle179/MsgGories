@@ -17,7 +17,7 @@ class GmailHelper {
      * @param {Object} credentials The authorization client credentials.
      * @param {function} callback The callback to call with the authorized client.
      */
-    authorize(credentials, callback, gameId, roundNumber) {
+    authorize(credentials, callback, gameId, roundNumber, playersEmails) {
         const { client_secret, client_id, redirect_uris } = credentials.installed;
         const oAuth2Client = new google.auth.OAuth2(
             client_id, client_secret, redirect_uris[0]);
@@ -26,7 +26,7 @@ class GmailHelper {
         fs.readFile(TOKEN_PATH, (err, token) => {
             if (err) return this.getNewToken(oAuth2Client, callback);
             oAuth2Client.setCredentials(JSON.parse(token));
-            callback(oAuth2Client, gameId, roundNumber);
+            callback(oAuth2Client, gameId, roundNumber, playersEmails);
         });
     }
 
@@ -76,17 +76,15 @@ class GmailHelper {
         }
         return content;
     }
-    createEmail(content, gameId, roundNumber) {
+    createEmail(content, gameId, roundNumber, playerEmail) {
         let userId = "me";
-        let emailTo = "msggories@gmail.com";
-
         let subject = "Game-" + gameId + "-" + roundNumber;
 
         let email = [
             "Content-Type: text/html; charset=\"UTF-8\"\n",
             "MIME-Version: 1.0\n",
             "Content-Transfer-Encoding: base64\n",
-            "to: ", emailTo, "\n",
+            "to: ", playerEmail, "\n",
             "from: ", userId, "\n",
             "subject: ", subject, "\n\n",
             "<html><body>" +
