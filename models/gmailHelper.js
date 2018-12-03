@@ -17,7 +17,7 @@ class GmailHelper {
      * @param {Object} credentials The authorization client credentials.
      * @param {function} callback The callback to call with the authorized client.
      */
-    authorize(credentials, callback) {
+    authorize(credentials, callback, gameId, roundNumber) {
         const { client_secret, client_id, redirect_uris } = credentials.installed;
         const oAuth2Client = new google.auth.OAuth2(
             client_id, client_secret, redirect_uris[0]);
@@ -26,7 +26,7 @@ class GmailHelper {
         fs.readFile(TOKEN_PATH, (err, token) => {
             if (err) return this.getNewToken(oAuth2Client, callback);
             oAuth2Client.setCredentials(JSON.parse(token));
-            callback(oAuth2Client);
+            callback(oAuth2Client, gameId, roundNumber);
         });
     }
 
@@ -76,12 +76,12 @@ class GmailHelper {
         }
         return content;
     }
-    createEmail(content) {
+    createEmail(content, gameId, roundNumber) {
         let userId = "me";
         let emailTo = "msggories@gmail.com";
-        let subject = "test subject";
 
-        //TODO put round number in sent message
+        let subject = "Game-" + gameId + "-" + roundNumber;
+
         let email = [
             "Content-Type: text/html; charset=\"UTF-8\"\n",
             "MIME-Version: 1.0\n",
@@ -115,10 +115,11 @@ class GmailHelper {
         });
     }
 
-    readEmails(auth) {
+    readEmails(auth, gameId, roundNumber) {
         const gmail = google.gmail({ version: 'v1', auth });
         let userId = "me";
-
+        let subject = "Game-" + gameId + "-" + roundNumber;
+        console.log("subject = " + subject);
         gmail.users.messages.list({
             'userId': userId,
         }, (err, res) => {
@@ -133,7 +134,6 @@ class GmailHelper {
                     }, (err, res) => {
                         if (err) return console.log('The API returned an error: ' + err);
                         else {
-                            console.log("Retrieved message");
                             console.log(res.data.snippet);
                         }
                     });

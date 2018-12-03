@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const GmailHelper = require("../../models/gmailHelper");
 const fs = require('fs');
-
+const uuid = require("uuid");
 const gmailHelper = new GmailHelper();
 
 // @route GET api/items
@@ -35,35 +35,41 @@ router.delete("/:id", (req, res) => {
 
 });
 
+// This uuid should be created when the start game is clicked
+// generating it here for just testing
+let uniqueId = uuid();
+
 // @desc Sends the email to the players
 router.get("/sendMessage", (req, res) => {
-    authorize(sendEmail);
+    // round id will also be passed here
+    authorize(sendEmail, uniqueId, "1");
 });
 
 // @desc Gets the emails from the players
 router.get("/getMessages", (req, res) => {
-    authorize(readEmails);
+    // round id will also be passed here
+    authorize(readEmails, uniqueId, "1");
 });
 
-function authorize(callback) {
+function authorize(callback, gameId, roundNumber) {
     // Load client secrets from a local file.
     fs.readFile('credentials.json', (err, content) => {
         if (err) return console.log('Error loading client secret file:', err);
         // Authorize a client with credentials, then call the Gmail API.
-        gmailHelper.authorize(JSON.parse(content), callback);
+        gmailHelper.authorize(JSON.parse(content), callback, gameId, roundNumber);
     });
 }
 
-function sendEmail(auth) {
+function sendEmail(auth, roundNumber, gameId) {
     let categories = ["Boy Names", "People", "Country", "Food"];
     let content = gmailHelper.createContentTable(categories);
-    let email = gmailHelper.createEmail(content)
+    let email = gmailHelper.createEmail(content, roundNumber, gameId);
 
     gmailHelper.sendEmail(auth, email);
 }
 
-function readEmails(auth) {
-    gmailHelper.readEmails(auth);
+function readEmails(auth, roundNumber, gameId) {
+    gmailHelper.readEmails(auth, roundNumber, gameId);
 }
 
 module.exports = router;
