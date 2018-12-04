@@ -10,7 +10,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import uuid from "uuid";
 import { connect } from "react-redux";
 import {
-  getItems
+  getItems, getPlayers
 } from "../actions/itemActions";
 import Timer from "./Timer";
 import DiceRoller from "./DiceRoller";
@@ -34,6 +34,11 @@ class CategoriesList extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.getPlayers();
+    this.props.getItems();
+
+  }
   
   toggle(event) {
 
@@ -114,5 +119,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems }
+  { getItems, getPlayers }
 )(CategoriesList);

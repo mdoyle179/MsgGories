@@ -1,11 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const GmailAuth = require("./gmailAuth");
-const {google} = require('googleapis');
-const Base64 = require('js-base64').Base64;
+const GmailHelper = require("../../models/gmailHelper");
 const fs = require('fs');
-
-const gmailAuth = new GmailAuth();
+const uuid = require("uuid");
+const gmailHelper = new GmailHelper();
 
 // @route GET api/items
 // @desc Get All Items
@@ -38,45 +36,45 @@ router.delete("/:id", (req, res) => {
 
 });
 
-// @route Sends the email to the players
-// @desc Delete Item
+// This uuid should be created when the start game is clicked
+// generating it here for just testing
+let uniqueId = uuid();
+
+let playersEmails = ["msggories@gmail.com"]
+
+// @desc Sends the email to the players
 router.get("/sendMessage", (req, res) => {
-  console.log('in send message');
-  // Load client secrets from a local file.
-  fs.readFile('credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
-    // Authorize a client with credentials, then call the Gmail API.
-    gmailAuth.authorize(JSON.parse(content), sendEmail);
-  });
+    // round id will also be passed here
+    authorize(sendEmail, uniqueId, "1", playersEmails);
 });
 
-function sendEmail(auth) {
-  let userId = "me";
-  let emailTo = "msggories@gmail.com";
-  let subject = "test subject";
-  let email = ["Content-Type: text/plain; charset=\"UTF-8\"\n",
-    "MIME-Version: 1.0\n",
-    "Content-Transfer-Encoding: 7bit\n",
-    "to: ", emailTo, "\n",
-    "from: ", userId, "\n",
-    "subject: ", subject, "\n\n",
-    "content of body"
-  ].join('');
+// @desc Gets the emails from the players
+router.get("/getMessages", (req, res) => {
+    // round id will also be passed here
+    authorize(readEmails, uniqueId, "1", playersEmails);
+});
 
-  const gmail = google.gmail({version: 'v1', auth});
-  let base64EncodedEmail = Base64.encodeURI(email);
+function authorize(callback, gameId, roundNumber, playersEmails) {
+    // Load client secrets from a local file.
+    fs.readFile('credentials.json', (err, content) => {
+        if (err) return console.log('Error loading client secret file:', err);
+        // Authorize a client with credentials, then call the Gmail API.
+        gmailHelper.authorize(JSON.parse(content), callback, gameId, roundNumber, playersEmails);
+    });
+}
 
-  gmail.users.messages.send({
-    'userId': userId,
-    'resource': {
-      'raw': base64EncodedEmail
+function sendEmail(auth, roundNumber, gameId, playersEmails) {
+    let categories = ["Boy Names", "People", "Country", "Food"];
+    let content = gmailHelper.createContentTable(categories);
+    for (let i = 0; i < playersEmails.length; i++) {
+        let email = gmailHelper.createEmail(content, roundNumber, gameId, playersEmails[i]);
+
+        gmailHelper.sendEmail(auth, email);
     }
-  }, (err, res) => {
-    if (err) return console.log('The API returned an error: ' + err);
-    else {
-      console.log("Sent message");
-    }
-  });
+}
+
+function readEmails(auth, roundNumber, gameId) {
+    gmailHelper.readEmails(auth, roundNumber, gameId);
 }
 
 module.exports = router;

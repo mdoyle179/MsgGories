@@ -1,8 +1,6 @@
+import axios from "axios";
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS,
    SEND_PLAYER_EMAILS, GET_PLAYER_RESPONSES, START_GAME, UPDATE_LETTER, NEXT_ROUND, TIMES_UP} from "../actions/types";
-import axios from "axios";
-
-
 
 export const getItems = ()=> {
   return{
@@ -12,20 +10,20 @@ export const getItems = ()=> {
 }
 
 
-export const getPlayers= () => dispatch => {
-  axios.get("./api/items/players").then(res =>
-    dispatch({
-      type: GET_PLAYERS,
-      payload: res.data
-    })
-  );
+export const getPlayers = () => dispatch => {
+    axios.get("./api/items/players").then(res =>
+        dispatch({
+            type: GET_PLAYERS,
+            payload: res.data
+        })
+    );
 };
 
 
 export const getPlayerResponses = () => {
-  return {
-    type: GET_PLAYER_RESPONSES
-  };
+    return {
+        type: GET_PLAYER_RESPONSES
+    };
 };
 
 export const updateLetter = (letter) => {
@@ -47,10 +45,11 @@ export const timesUp = () => {
   };
 };
 
-export const sendPlayerEmails = () => {
-  return {
-    type: SEND_PLAYER_EMAILS
-  };
+export const sendPLayerEmails = () => {
+    return {
+        type: SEND_PLAYER_EMAILS
+    };
+
 };
 
 export const startGame = (playerEmails) => {
@@ -62,14 +61,13 @@ export const startGame = (playerEmails) => {
 
 export const deleteItem = id => {
   return {
-    type: DELETE_ITEM,
-    payload: id
+    type: START_GAME 
   };
 };
 
 export const addItem = item => {
-  return {
-    type: ADD_ITEM,
-    payload: item
-  };
+    return {
+        type: ADD_ITEM,
+        payload: item
+    };
 };
