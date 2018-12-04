@@ -53,8 +53,7 @@ class Splash extends Component {
               <span style={{ color: "lime", fontSize: "20pt" }}>
                 MAD HACKERS INC
               </span>
-
-              <hr />
+              <p/>
               <button onClick={this.toggle}>Play Game!</button>
             </div>
 

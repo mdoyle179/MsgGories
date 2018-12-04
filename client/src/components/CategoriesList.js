@@ -98,7 +98,7 @@ renderCategoryItem = (name, itemIndex) => {
             </TransitionGroup>
           </ListGroup>
         </div>
-
+          <hr/>      
         <Timer />
         <DiceRoller />
         <Players />

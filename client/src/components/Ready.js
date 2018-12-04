@@ -9,18 +9,43 @@ import {
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import { connect } from "react-redux";
-import { addItem } from "../actions/itemActions";
+import { startGame } from "../actions/itemActions";
 
 class Ready extends Component {
   state = {
     modal: false,
     name: "",
     letter: "",
-    toggledOnce: false
+    toggledOnce: false,
+    seconds: 5,
+    countDown: false
   };
 
+  startCountdown() {
+
+    if (seconds == "GO!") return;
+    var seconds = this.state.seconds;
+    var countDown = true
+    this.timer = setInterval(() => {
+      seconds--;
+      if (seconds == 0) {
+        seconds = "GO!"
+        clearInterval(this.timer);
+        //this.props.startGame();
+        countDown = false;
+        this.toggle();
+      };
+      this.setState({
+        seconds: seconds,
+        countDown: countDown
+
+      })
+    }, 1000);
+
+  }
+
   componentDidMount() {
-   // this.toggle();
+    // this.toggle();
   }
 
   toggle = () => {
@@ -33,11 +58,12 @@ class Ready extends Component {
 
   render() {
 
-    const {gameStarted} = this.props.itemsReducerInstance;
+    const { gameStarted } = this.props.itemsReducerInstance;
     if (!gameStarted) return null;
-    
-    if (gameStarted && !this.state.toggledOnce)  this.toggle();
 
+    if (gameStarted && !this.state.toggledOnce) this.toggle();
+
+    if (this.state.countDown == false) this.startCountdown();
     const { players } = this.props.itemsReducerInstance;
 
     return (
@@ -48,31 +74,29 @@ class Ready extends Component {
 
 
             <div id="logoSplash">MsgGories</div>
-            <h1>Ready! </h1>
+            <h2>Ready! in : {this.state.seconds}</h2>
             <TransitionGroup>
-                <div className="ready">
-                <div style={{textAlign:"center", fontSize:"small"}}>Players
-                <table style={{margin:"1em auto", padding:"10px"}}>
-                {players.map(({ id, name, score }) => (
-                  <CSSTransition key={id} timeout={500} classNames="fade">
-                  <tr>
-                 
-                  <td style={{textAlign:"left", width:"200px", padding:"10px"}}>{name}</td>
-                  <td style={{textAlign:"center", width:"200px", padding:"10px"}}>{score}</td> 
+              <div className="ready">
+                <div style={{ textAlign: "center" }}>Players
+                <table style={{ margin: "3em auto", padding: "5px" }}>
+                    {players.map(({ id, name, score }) => (
+                      <CSSTransition key={id} timeout={500} classNames="fade">
+                        <tr>
 
-                  
-                    </tr>
-                  </CSSTransition>
-                ))}
-                </table>
+                          <td style={{ textAlign: "left", width: "200px", padding: "5px" }}>{name}</td>
+                          <td style={{ textAlign: "center", width: "200px", padding: "5px" }}>{score}</td>
+
+
+                        </tr>
+                      </CSSTransition>
+                    ))}
+                  </table>
                 </div>
-                </div>
-              </TransitionGroup>
-             
- 
-              <hr />
-              <button onClick={this.toggle}>Play Game!</button>
-          
+              </div>
+            </TransitionGroup>
+
+            <button onClick={this.toggle}>Play Game!</button>
+
 
           </ModalBody>
         </Modal>
@@ -86,5 +110,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { addItem }
+  { startGame }
 )(Ready);
