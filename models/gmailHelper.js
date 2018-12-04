@@ -144,8 +144,10 @@ class GmailHelper {
                         if (err) return console.log('The API returned an error: ' + err);
                         else {
                             let playerResponse = this.getPlayerResponse(res.data, subject, playersEmails);
-                            if (playerResponse != "") {
+                            if (Object.keys(playerResponse).length > 0) {
                                 playersThatResponded.push(playerResponse);
+                                console.log("player email = " + playerResponse.playerEmail);
+                                console.log("message content = " + playerResponse.messageContent);
                             }
                         }
                     });
@@ -156,6 +158,7 @@ class GmailHelper {
 
     getPlayerResponse(response, replySubject, playersEmails) {
         // console.log('in isplayerresponse');
+        let objectToReturn = {};
         let headers = response.payload.headers;
         let subject = "";
         let from = "";
@@ -181,10 +184,11 @@ class GmailHelper {
             if (playersEmails.indexOf(from)) {
                 console.log("Found the person = " + from);
             }
-            return response;
+            objectToReturn.playerEmail = from;
+            objectToReturn.messageContent = response.snippet;
         }
 
-        return "";
+        return objectToReturn;
     }
 }
 
