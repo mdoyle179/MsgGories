@@ -78,15 +78,15 @@ class GmailHelper {
     }
     createEmail(content, gameId, roundNumber, playerEmail) {
         let userId = "me";
-        let subject = "Game-" + gameId + "-" + roundNumber;
+        let subject = this.createSubject(gameId, roundNumber, false);
 
         let email = [
             "Content-Type: text/html; charset=\"UTF-8\"\n",
             "MIME-Version: 1.0\n",
             "Content-Transfer-Encoding: base64\n",
-            "to: ", playerEmail, "\n",
-            "from: ", userId, "\n",
-            "subject: ", subject, "\n\n",
+            "To: ", playerEmail, "\n",
+            "From: ", userId, "\n",
+            "Subject: ", subject, "\n\n",
             "<html><body>" +
             content +
             "</body></html>"
@@ -106,18 +106,28 @@ class GmailHelper {
                 'raw': email
             }
         }, (err, res) => {
-            if (err) return console.log('The API returned an error: ' + err);
+            if (err) return console.log('The API returned an error while sending the email: ' + err);
             else {
                 console.log("Sent message");
             }
         });
     }
 
-    readEmails(auth, gameId, roundNumber) {
+    createSubject(gameId, roundNumber, isReply) {
+        let subject = "MsgGories-" + gameId + "-" + roundNumber;
+        if (isReply) {
+            subject = "Re: " + subject;
+        }
+        return subject;
+    }
+
+    readEmails(auth, gameId, roundNumber, playersEmails) {
         const gmail = google.gmail({ version: 'v1', auth });
         let userId = "me";
-        let subject = "Game-" + gameId + "-" + roundNumber;
-        console.log("subject = " + subject);
+        let subject = this.createSubject(gameId, roundNumber, true);
+        let playersThatResponded = [];
+
+        // Get all messages in the inbox
         gmail.users.messages.list({
             'userId': userId,
         }, (err, res) => {
@@ -126,18 +136,59 @@ class GmailHelper {
                 let messages = res.data.messages;
 
                 for (let i = 0; i < messages.length; i++) {
+                    // Get the actual message objects
                     gmail.users.messages.get({
                         'userId': userId,
                         'id': messages[i].id
                     }, (err, res) => {
                         if (err) return console.log('The API returned an error: ' + err);
                         else {
-                            console.log(res.data.snippet);
+                            let playerResponse = this.getPlayerResponse(res.data, subject, playersEmails);
+                            if (Object.keys(playerResponse).length > 0) {
+                                playersThatResponded.push(playerResponse);
+                                console.log("player email = " + playerResponse.playerEmail);
+                                console.log("message content = " + playerResponse.messageContent);
+                            }
                         }
                     });
                 }
             }
         });
+    }
+
+    getPlayerResponse(response, replySubject, playersEmails) {
+        // console.log('in isplayerresponse');
+        let objectToReturn = {};
+        let headers = response.payload.headers;
+        let subject = "";
+        let from = "";
+
+        for (let j = 0; j < headers.length; j++) {
+            // Get the subject
+            if (headers[j].name.toUpperCase() === "SUBJECT") {
+                subject = headers[j].value;
+            }
+            // Get who the email is from
+            else if (headers[j].name.toUpperCase() === "FROM") {
+                from = headers[j].value;
+            }
+        }
+        // console.log("subject = " + subject);
+        // console.log("from = " + from);
+
+        // See if the subject matches the one we are looking for
+        if (subject === replySubject) {
+            console.log("Found a reply subject = " + subject);
+
+            // See if it matches the players email
+            if (playersEmails.indexOf(from)) {
+                console.log("Found the person = " + from);
+            }
+            objectToReturn.playerEmail = from;
+            objectToReturn.messageContent = response.snippet;
+        }
+
+        return objectToReturn;
     }
 }
 
