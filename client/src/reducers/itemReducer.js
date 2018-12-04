@@ -1,4 +1,4 @@
-import { GET_ITEMS, GET_PLAYERS, GET_PLAYER_RESPONSES, SEND_PLAYER_EMAILS, START_GAME } from "../actions/types";
+import { GET_ITEMS, GET_PLAYERS, GET_PLAYER_RESPONSES, SEND_PLAYER_EMAILS, START_GAME, UPDATE_LETTER } from "../actions/types";
 var category1 = {
   items: [
     {
@@ -74,24 +74,33 @@ var msgGories = [];
 msgGories.push(category1);
 msgGories.push(category2);
 msgGories.push(category3);
+
 var min = 0;
-var max = 3;
-var random;
-random = Math.floor(Math.random() * (+max - +min)) + +min;
+var max = msgGories.length;
 
 const initialState = {
-  items: msgGories[random].items,
+  items:[],
   players: [],
   action: "",
-  gameStarted: false
+  gameStarted: false,
+  msgGories: msgGories,
+  letter: null,
+  currentRound: 1,
+  maxRounds: 3,
+  gameOver: false
+
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_ITEMS:
+
+    //  var random = Math.floor(Math.random() * (+max - +min)) + +min;  
+    //   var currentMsgGoriesItems = msgGories[random].items;
+    //   msgGories.splice(random, 1);
       return {
         ...state,
-        players: action.payload,
+        items: [],
         action: action.type
       };
     case GET_PLAYERS:
@@ -100,11 +109,26 @@ export default function (state = initialState, action) {
         players: action.payload,
         action: action.type
       };
+
+      case UPDATE_LETTER:
+      return {
+        ...state,
+        letter: action.payload,
+        action: action.type
+      };
       case START_GAME:
+      // var random = Math.floor(Math.random() * (+max - +min)) + +min;  
+      // var categoriesArrayCopy = state.msgGories[0].items.slice(0);
+      var thisRoundCategories = state.msgGories.shift()
+
+      // msgGories.splice(random, 1);
       return {
         ...state,
         action: action.type,
-        gameStarted: true
+        gameStarted: true,
+        items:  thisRoundCategories.items
+
+
       };
     case GET_PLAYER_RESPONSES:
       return {

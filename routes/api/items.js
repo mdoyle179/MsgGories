@@ -14,6 +14,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/players", (req, res) => {
+  console.log("In players route")
   var players = [];
   var player1 = {name:"Ag", score:0};
   var player2= {name:"Matt", score:0};

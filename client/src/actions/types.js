@@ -5,3 +5,7 @@ export const GET_PLAYERS = "GET_PLAYERS";
 export const GET_PLAYER_RESPONSES = "GET_PLAYER_RESPONSES";
 export const SEND_PLAYER_EMAILS = "SEND_PLAYER_EMAILS";
 export const START_GAME = "START_GAME";
+export const UPDATE_LETTER = "UPDATE_LETTER";
+export const TIMES_UP = "TIMES_UP";
+export const NEXT_ROUND = "NEXT_ROUND";
+export const GAME_OVER = "GAME_OVER";

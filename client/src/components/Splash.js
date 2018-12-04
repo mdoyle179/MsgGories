@@ -43,7 +43,7 @@ class Splash extends Component {
             </CSSTransition>
             <h2 style={{ textAlign: "center" }}>Presents</h2>
             <div id="logoSplash">MsgGories</div>
-
+            <div style={{color:"orange", fontSize:"8pt", textAlign:"center", marginTop: "-20px", top:"-100"}}>1984 Agtivision,  Inc</div>
             <div style={{ textAlign: "center" }}>In collaboration with</div>
             <div style={{ textAlign: "center" }}>
               <span style={{ color: "red", fontSize: "20pt" }}>
@@ -53,6 +53,7 @@ class Splash extends Component {
               <span style={{ color: "lime", fontSize: "20pt" }}>
                 MAD HACKERS INC
               </span>
+
               <hr />
               <button onClick={this.toggle}>Play Game!</button>
             </div>

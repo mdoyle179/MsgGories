@@ -10,14 +10,14 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import uuid from "uuid";
 import { connect } from "react-redux";
 import {
-  getItems,
-  getPlayers
+  getItems
 } from "../actions/itemActions";
 import Timer from "./Timer";
 import DiceRoller from "./DiceRoller";
 import PropTypes from "prop-types";
 import Players from "./Players";
 import {GET_ITEMS} from "../actions/types"
+import Ready from "./Ready";
 
 class CategoriesList extends Component {
   constructor(props) {
@@ -34,11 +34,6 @@ class CategoriesList extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.getPlayers();
-    this.props.getItems();
-
-  }
   
   toggle(event) {
 
@@ -102,6 +97,7 @@ renderCategoryItem = (name, itemIndex) => {
         <Timer />
         <DiceRoller />
         <Players />
+        <Ready/>
       </Container>
     );
   }
@@ -118,5 +114,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems, getPlayers }
+  { getItems }
 )(CategoriesList);

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { startGame } from "../actions/itemActions";
+import { startGame, timesUp } from "../actions/itemActions";
 import  React from "react";
 import  ms from "pretty-ms";
 
@@ -46,6 +46,14 @@ class Timer extends React.Component {
   renderTimer() {
     if (this.state.time < 1000) return 0;
 
+    if (this.state.time >= 30000){
+      this.stopTimer();
+      this.resetTimer();
+      this.props.timesUp();
+      return 0;
+    }
+
+
     return ms(this.state.time,  {secDecimalDigits:0});
   }
 
@@ -88,6 +96,6 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { startGame }
+  { startGame, timesUp }
 )(Timer);
 

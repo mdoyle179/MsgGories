@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addItem } from "../actions/itemActions";
+import { updateLetter } from "../actions/itemActions";
 
 class DiceRoller extends Component {
-  state = {
-    letter: "_"
-  };
+
+
+  componentDidMount = (event) =>{
+    const { letter } = this.props.itemsReducerInstance;
+
+    if (letter === null) this.generateLetter();
+
+  }
 
   generateLetter = () => {
     var min = 64;
@@ -22,13 +27,20 @@ class DiceRoller extends Component {
       }
     }
     var letter = String.fromCharCode(random);
-    this.setState({ letter: letter });
+    this.props.updateLetter(letter);
   };
 
 
 
   render() {
-    const { letter } = this.state;
+ 
+    const {gameStarted} = this.props.itemsReducerInstance;
+    if (!gameStarted) return null;
+
+    const { letter } = this.props.itemsReducerInstance;
+
+    if (letter === null) this.generateLetter();
+  
     return (
       <div id="diceRoller">
         <div style={{ fontSize:"28pt", padding:"10px", textAlign:"center"}}>{letter}</div>
@@ -45,10 +57,10 @@ class DiceRoller extends Component {
 }
 
 const mapStateToProps = state => ({
-  item: state.item
+  itemsReducerInstance: state.itemsReducerInstance
 });
 
 export default connect(
   mapStateToProps,
-  { addItem }
+  { updateLetter }
 )(DiceRoller);

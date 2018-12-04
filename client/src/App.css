@@ -215,19 +215,23 @@ button:active {
 
 #splash {
   background-color: #000;
+
+  left: -500px;
+  position: absolute;
 }
 
 #splash  hr {
   background-color: #000;
   font-family: "britannic", Arial, sans-serif;
   color: whitesmoke;
+
 }
 
 .modal-body {
   background-color: #000;
   height: 100%;
   width: 1000px;
-  left: -10em;
+  left: -15em;
   margin-top: 0px;
   color: whitesmoke;
   overflow: hidden;
@@ -260,3 +264,14 @@ button:active {
   text-stroke: 1px #000;
 }
 
+.ready {
+  border: 2px solid lime;
+  padding: 10px;
+  width: 4em;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  background: black;
+
+
+}
