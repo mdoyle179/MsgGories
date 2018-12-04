@@ -143,7 +143,7 @@ class GmailHelper {
                     }, (err, res) => {
                         if (err) return console.log('The API returned an error: ' + err);
                         else {
-                            let playerResponse = this.isPlayerResponse(res.data, subject);
+                            let playerResponse = this.getPlayerResponse(res.data, subject, playersEmails);
                             if (playerResponse != "") {
                                 playersThatResponded.push(playerResponse);
                             }
@@ -154,19 +154,36 @@ class GmailHelper {
         });
     }
 
-    isPlayerResponse(response, subject) {
-        for (let j = 0; j < response.payload.headers.length; j++) {
-            if (response.payload.headers[j].name.toUpperCase() === "FROM") {
-                // console.log("from = " + response.payload.headers[j].value);
+    getPlayerResponse(response, replySubject, playersEmails) {
+        // console.log('in isplayerresponse');
+        let headers = response.payload.headers;
+        let subject = "";
+        let from = "";
+
+        for (let j = 0; j < headers.length; j++) {
+            // Get the subject
+            if (headers[j].name.toUpperCase() === "SUBJECT") {
+                subject = headers[j].value;
             }
-            if (response.payload.headers[j].name.toUpperCase() === "SUBJECT") {
-                // console.log("subject = " + response.payload.headers[j].value);
-                if (response.payload.headers[j].value === subject) {
-                    console.log("Found a reply! = " + response.payload.headers[j].value);
-                    return response.payload.headers[j].value;
-                }
+            // Get who the email is from
+            else if (headers[j].name.toUpperCase() === "FROM") {
+                from = headers[j].value;
             }
         }
+        // console.log("subject = " + subject);
+        // console.log("from = " + from);
+
+        // See if the subject matches the one we are looking for
+        if (subject === replySubject) {
+            console.log("Found a reply subject = " + subject);
+
+            // See if it matches the players email
+            if (playersEmails.indexOf(from)) {
+                console.log("Found the person = " + from);
+            }
+            return response;
+        }
+
         return "";
     }
 }
