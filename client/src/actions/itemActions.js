@@ -1,21 +1,8 @@
-<<<<<<< HEAD
-=======
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS,
-   SEND_PLAYER_EMAILS, GET_PLAYER_RESPONSES, START_GAME, UPDATE_LETTER, NEXT_ROUND, TIMES_UP} from "../actions/types";
->>>>>>> Not sure
 import axios from "axios";
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS,
    SEND_PLAYER_EMAILS, GET_PLAYER_RESPONSES, START_GAME, UPDATE_LETTER, NEXT_ROUND, TIMES_UP} from "../actions/types";
 
-export const getItems = ()=> {
-  return{
-      type: GET_ITEMS,
-      payload: GET_ITEMS
-  }
-}
 
-
-<<<<<<< HEAD
 export const getPlayers = () => dispatch => {
     axios.get("./api/items/players").then(res =>
         dispatch({
@@ -24,7 +11,6 @@ export const getPlayers = () => dispatch => {
         })
     );
 };
-=======
 export const getItems = ()=> {
   return{
       type: GET_ITEMS,
@@ -32,7 +18,6 @@ export const getItems = ()=> {
   }
 }
 
->>>>>>> Not sure
 
 
 export const getPlayerResponses = () => {
@@ -41,32 +26,16 @@ export const getPlayerResponses = () => {
     };
 };
 
-export const updateLetter = (letter) => {
-  return {
-    payload: letter,
-    type: UPDATE_LETTER
-  };
-};
-
 export const nextRound = () => {
   return {
     type: NEXT_ROUND
   };
 };
 
-<<<<<<< HEAD
-export const timesUp = () => {
-=======
 export const updateLetter = (letter) => {
   return {
     payload: letter,
     type: UPDATE_LETTER
-  };
-};
-
-export const nextRound = () => {
-  return {
-    type: NEXT_ROUND
   };
 };
 
@@ -77,7 +46,6 @@ export const timesUp = () => {
 };
 
 export const sendPlayerEmails = () => {
->>>>>>> Not sure
   return {
     type: TIMES_UP
   };

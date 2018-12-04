@@ -220,19 +220,12 @@ button:active {
   position: absolute;
 }
 
-<<<<<<< HEAD
 #splash,   hr {
 
   border: 1px solid rgb(224, 209, 66);
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-=======
-#splash  hr {
-  background-color: #000;
-  font-family: "britannic", Arial, sans-serif;
-  color: whitesmoke;
->>>>>>> Not sure
 
 }
 
@@ -276,19 +269,12 @@ button:active {
 .ready {
   border: 2px solid lime;
   padding: 10px;
-<<<<<<< HEAD
   text-align: center;
-=======
-  width: 4em;
->>>>>>> Not sure
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
   background: black;
-<<<<<<< HEAD
   font-size: 14pt;
-=======
->>>>>>> Not sure
 
 
 }

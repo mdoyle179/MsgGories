@@ -10,11 +10,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import uuid from "uuid";
 import { connect } from "react-redux";
 import {
-<<<<<<< HEAD
   getItems, getPlayers
-=======
-  getItems
->>>>>>> Not sure
 } from "../actions/itemActions";
 import Timer from "./Timer";
 import DiceRoller from "./DiceRoller";
