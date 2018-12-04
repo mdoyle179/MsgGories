@@ -39,7 +39,7 @@ router.delete("/:id", (req, res) => {
 // generating it here for just testing
 let uniqueId = uuid();
 
-let playersEmails = ["msggories@gmail.com"]
+let playersEmails = ["msggories@gmail.com", "mdoyle179@gmail.com"];
 
 // @desc Sends the email to the players
 router.get("/sendMessage", (req, res) => {
@@ -72,8 +72,8 @@ function sendEmail(auth, roundNumber, gameId, playersEmails) {
     }
 }
 
-function readEmails(auth, roundNumber, gameId) {
-    gmailHelper.readEmails(auth, roundNumber, gameId);
+function readEmails(auth, roundNumber, gameId, playersEmails) {
+    gmailHelper.readEmails(auth, roundNumber, gameId, playersEmails);
 }
 
 module.exports = router;
