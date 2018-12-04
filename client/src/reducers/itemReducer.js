@@ -1,4 +1,4 @@
-import { GET_ITEMS, GET_PLAYERS, GET_PLAYER_RESPONSES, SEND_PLAYER_EMAILS } from "../actions/types";
+import { GET_ITEMS, GET_PLAYERS, GET_PLAYER_RESPONSES, SEND_PLAYER_EMAILS, START_GAME } from "../actions/types";
 var category1 = {
   items: [
     {
@@ -82,7 +82,8 @@ random = Math.floor(Math.random() * (+max - +min)) + +min;
 const initialState = {
   items: msgGories[random].items,
   players: [],
-  action: ""
+  action: "",
+  gameStarted: false
 };
 
 export default function (state = initialState, action) {
@@ -99,7 +100,12 @@ export default function (state = initialState, action) {
         players: action.payload,
         action: action.type
       };
-
+      case START_GAME:
+      return {
+        ...state,
+        action: action.type,
+        gameStarted: true
+      };
     case GET_PLAYER_RESPONSES:
       return {
         ...state

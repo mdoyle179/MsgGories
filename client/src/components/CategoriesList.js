@@ -35,8 +35,9 @@ class CategoriesList extends Component {
   }
 
   componentDidMount() {
-    this.props.getItems();
     this.props.getPlayers();
+    this.props.getItems();
+
   }
   
   toggle(event) {
@@ -54,16 +55,20 @@ class CategoriesList extends Component {
 
 renderCategoryItem = (name, itemIndex) => {
   const { action } = this.props.itemsReducerInstance;
-    if (action === GET_ITEMS)
+  const {gameStarted} = this.props.itemsReducerInstance;
+    if (gameStarted)
     {
       return (
-      <Tooltip id={"tooltip" + itemIndex} className="toolTip" placement="right" isOpen={this.state.toolTips["inputX" + itemIndex]} target={"inputX" + itemIndex} toggle={this.toggle}> */}
+        <div>
+        <input id={"inputX" + itemIndex} type="text" placeholder={name} autofocus></input>
+      <Tooltip id={"tooltip" + itemIndex} className="toolTip" placement="right" isOpen={this.state.toolTips["inputX" + itemIndex]} target={"inputX" + itemIndex} toggle={this.toggle}>
       {name} 
       </Tooltip>
+      </div>
       );
     }
-    else{
-      return <input id={"inputX" + itemIndex} type="text" placeholder={name} autofocus></input>;
+    else {
+      return <div>{name}</div> ;
     }
                 
 }
@@ -83,11 +88,7 @@ renderCategoryItem = (name, itemIndex) => {
                 <CSSTransition key={id} timeout={500} classNames="fade">
                   <ListGroupItem>
 
-                    {/* <input id={"inputX" + itemIndex} type="text" placeholder={name} autofocus></input> */}
-
-                    {/* <Tooltip id={"tooltip" + itemIndex} className="toolTip" placement="right" isOpen={this.state.toolTips["inputX" + itemIndex]} target={"inputX" + itemIndex} toggle={this.toggle}> */}
-                    {name} 
-                    {/* </Tooltip> */}
+                    {this.renderCategoryItem(name, itemIndex)}
                 
 
                     <div style={{ display: "none" }}>{itemIndex++}</div>

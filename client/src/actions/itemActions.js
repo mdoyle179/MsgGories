@@ -1,5 +1,5 @@
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS,
-   SEND_PLAYER_EMAILS, GET_PLAYER_RESPONSES } from "../actions/types";
+   SEND_PLAYER_EMAILS, GET_PLAYER_RESPONSES, START_GAME } from "../actions/types";
 import axios from "axios";
 
 
@@ -29,9 +29,16 @@ export const getPlayerResponses = () => {
   };
 };
 
-export const sendPLayerEmails = () => {
+export const sendPlayerEmails = () => {
   return {
     type: SEND_PLAYER_EMAILS
+  };
+};
+
+export const startGame = (playerEmails) => {
+
+  return {
+    type: START_GAME 
   };
 };
 

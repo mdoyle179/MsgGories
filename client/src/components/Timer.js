@@ -1,5 +1,8 @@
-const React = require("react");
-const ms = require("pretty-ms");
+import { connect } from "react-redux";
+import { startGame } from "../actions/itemActions";
+import  React from "react";
+import  ms from "pretty-ms";
+
 
 class Timer extends React.Component {
   constructor(props) {
@@ -16,6 +19,7 @@ class Timer extends React.Component {
   }
 
   startTimer() {
+    this.props.startGame();
     this.setState({
       time: this.state.time,
       start: Date.now() - this.state.time,
@@ -78,4 +82,12 @@ class Timer extends React.Component {
   }
 }
 
-module.exports = Timer;
+const mapStateToProps = state => ({
+  item: state.item
+});
+
+export default connect(
+  mapStateToProps,
+  { startGame }
+)(Timer);
+
