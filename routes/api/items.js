@@ -5,11 +5,6 @@ const fs = require('fs');
 const uuid = require("uuid");
 const gmailHelper = new GmailHelper();
 
-// @route GET api/items
-// @desc Get All Items
-router.get("/", (req, res) => {
-
-});
 
 router.get("/players", (req, res) => {
     console.log("In players route")
@@ -24,17 +19,6 @@ router.get("/players", (req, res) => {
     console.log(players);
 });
 
-// @route POST api/items
-// @desc Create Post
-router.post("/", (req, res) => {
-
-});
-
-// @route Delete api/items
-// @desc Delete Item
-router.delete("/:id", (req, res) => {
-
-});
 
 // This uuid should be created when the start game is clicked
 // generating it here for just testing

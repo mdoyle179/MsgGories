@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const items = require("./routes/api/items");
+const game = require("./routes/api/game");
 const app = express();
 
 //Body parser middleware
@@ -18,7 +18,7 @@ const db = require("./config/keys").mongoURI;
 
 const port = process.env.PORT || 5000;
 
-app.use("/api/items", items);
+app.use("/api/game", game);
 
 
 app.listen(port, () => console.log("Server started on port " + port));
