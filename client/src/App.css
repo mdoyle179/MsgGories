@@ -63,10 +63,10 @@ body {
   position: relative;
 
   right: -226px;
-  top: -460px;
+  top: -300px;
   width: 158px;
   background-color: black;
-  font-family: "britannic", Arial, sans-serif;
+
 
   padding: 0px;
   font-size: 12pt;
@@ -88,21 +88,15 @@ body {
 }
 
 #timer {
-  position: relative;
-  bottom: 0px;
-  left: 2em;
-  margin: 10px;
+  float: left;
 }
 
 #diceRoller {
-  position: relative;
-  bottom: 110px;
-  right: -100px;
   /* background-image: url("./img/Die.png"); */
-  width: 150px;
-  height: 100px;
-  margin: 0 auto;
+  right: 10px;
   text-align: center;
+  font-size: 19pt;
+  float: right;
 }
 
 #game {

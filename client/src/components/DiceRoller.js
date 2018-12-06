@@ -43,7 +43,7 @@ class DiceRoller extends Component {
   
     return (
       <div id="diceRoller">
-        <div style={{ fontSize:"28pt", padding:"10px", textAlign:"center"}}>{letter}</div>
+        <div style={{ textAlign:"center"}}>{letter}</div>
         <button
           onClick={this.generateLetter}
         >
