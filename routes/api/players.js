@@ -18,24 +18,24 @@ router.post("/", (req, res) => {
     newplayer.save().then(player => res.json(player));
   });
   
-  router.get("/:id", (req, res) => {
+  router.get("/:_id", (req, res) => {
     Player.findById(req.params.id)
     .then(player => res.json(player));
   });
   
   router.get("/", (req, res) => {
-  
-    Player.find({}, function(err, players) {
-      var playerMap = {};
-  
-      players.forEach(function(player) {
-        playerMap[Player._id] = player;
-      });
-  
-       res.json(players);  
-    });
+    Player.find({}).lean().exec(function(err, players) {
+      var thePlayers = []; 
+      players = players.map(function(v) {
+        delete(v._id);
+        console.log(v);
+        thePlayers.push(v);
+       });
+       console.log(thePlayers);
+       res.send(thePlayers);
 
-  });
+    });
+});
 
   router.get("/?name=",function(req,res){
         Player.find({name:'name'},function(err, player) {
@@ -46,13 +46,13 @@ router.post("/", (req, res) => {
             });
   });
 
-  router.delete("/:id", (req,res) => {
+  router.delete("/:_id", (req,res) => {
     Player.findById(req.params.id)
     .then(player => player.remove().then(() => res.json(player)))
     .catch(err => res.status(404).json({ success: false }));
   });
 
-  router.put("/:id", (req,res) => {
+  router.put("/:_id", (req,res) => {
     Player.findByIdAndUpdate(req.params.id, {set$:req.body}, {new: false}, function(err, result){
       if(err){
       console.log(err);

@@ -4,7 +4,7 @@ import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS,
 
 
 export const getPlayers = () => dispatch => {
-    axios.get("./api/players").then(res =>
+    axios.get("./api/players/").then(res =>
         dispatch({
             type: GET_PLAYERS,
             payload: res.data
