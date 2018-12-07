@@ -61,12 +61,12 @@ body {
 
 #playerList {
   position: relative;
-  float: right;
-  right: -16px;
-  top: -450px;
+
+  right: -226px;
+  top: -300px;
   width: 158px;
   background-color: black;
-  font-family: "britannic", Arial, sans-serif;
+
 
   padding: 0px;
   font-size: 12pt;
@@ -88,21 +88,15 @@ body {
 }
 
 #timer {
-  position: relative;
-  bottom: 5px;
-  left: 100px;
-  margin: 10px;
+  float: left;
 }
 
 #diceRoller {
-  position: relative;
-  bottom: 40px;
-  right: -100px;
   /* background-image: url("./img/Die.png"); */
-  width: 150px;
-  height: 100px;
-  margin: 0 auto;
+  right: 10px;
   text-align: center;
+  font-size: 19pt;
+  float: right;
 }
 
 #game {
@@ -215,19 +209,25 @@ button:active {
 
 #splash {
   background-color: #000;
+
+  left: -500px;
+  position: absolute;
 }
 
-#splash  hr {
-  background-color: #000;
-  font-family: "britannic", Arial, sans-serif;
-  color: whitesmoke;
+#splash,   hr {
+
+  border: 1px solid rgb(224, 209, 66);
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+
 }
 
 .modal-body {
   background-color: #000;
   height: 100%;
   width: 1000px;
-  left: -10em;
+  left: -15em;
   margin-top: 0px;
   color: whitesmoke;
   overflow: hidden;
@@ -260,3 +260,15 @@ button:active {
   text-stroke: 1px #000;
 }
 
+.ready {
+  border: 2px solid lime;
+  padding: 10px;
+  text-align: center;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  background: black;
+  font-size: 14pt;
+
+
+}

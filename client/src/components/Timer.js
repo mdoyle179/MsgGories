@@ -1,5 +1,8 @@
-const React = require("react");
-const ms = require("pretty-ms");
+import { connect } from "react-redux";
+import { startGame, timesUp } from "../actions/itemActions";
+import  React from "react";
+import  ms from "pretty-ms";
+
 
 class Timer extends React.Component {
   constructor(props) {
@@ -16,18 +19,22 @@ class Timer extends React.Component {
   }
 
   startTimer() {
-    this.setState({
-      time: this.state.time,
-      start: Date.now() - this.state.time,
+    var self=this;
+    this.props.startGame();
+    setTimeout(function(){
+      self.setState({
+      time: self.state.time,
+      start: Date.now() - self.state.time,
       isOn: true
     });
-    this.timer = setInterval(
+    self.timer = setInterval(
       () =>
-        this.setState({
-          time: Date.now() - this.state.start
+      self.setState({
+          time: Date.now() - self.state.start
         }),
       1
     );
+      }, 5000);
   }
 
   stopTimer() {
@@ -41,6 +48,14 @@ class Timer extends React.Component {
 
   renderTimer() {
     if (this.state.time < 1000) return 0;
+
+    if (this.state.time >= 30000){
+      this.stopTimer();
+      this.resetTimer();
+      this.props.timesUp();
+      return 0;
+    }
+
 
     return ms(this.state.time,  {secDecimalDigits:0});
   }
@@ -78,4 +93,12 @@ class Timer extends React.Component {
   }
 }
 
-module.exports = Timer;
+const mapStateToProps = state => ({
+  item: state.item
+});
+
+export default connect(
+  mapStateToProps,
+  { startGame, timesUp }
+)(Timer);
+

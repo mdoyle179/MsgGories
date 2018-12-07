@@ -10,14 +10,14 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import uuid from "uuid";
 import { connect } from "react-redux";
 import {
-  getItems,
-  getPlayers
+  getItems, getPlayers
 } from "../actions/itemActions";
 import Timer from "./Timer";
 import DiceRoller from "./DiceRoller";
 import PropTypes from "prop-types";
 import Players from "./Players";
 import {GET_ITEMS} from "../actions/types"
+import Ready from "./Ready";
 
 class CategoriesList extends Component {
   constructor(props) {
@@ -34,10 +34,6 @@ class CategoriesList extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.getItems();
-    this.props.getPlayers();
-  }
   
   toggle(event) {
 
@@ -54,16 +50,20 @@ class CategoriesList extends Component {
 
 renderCategoryItem = (name, itemIndex) => {
   const { action } = this.props.itemsReducerInstance;
-    if (action === GET_ITEMS)
+  const {gameStarted} = this.props.itemsReducerInstance;
+    if (gameStarted)
     {
       return (
-      <Tooltip id={"tooltip" + itemIndex} className="toolTip" placement="right" isOpen={this.state.toolTips["inputX" + itemIndex]} target={"inputX" + itemIndex} toggle={this.toggle}> */}
+        <div>
+        <input id={"inputX" + itemIndex} type="text" placeholder={name} autofocus></input>
+      <Tooltip id={"tooltip" + itemIndex} className="toolTip" placement="right" isOpen={this.state.toolTips["inputX" + itemIndex]} target={"inputX" + itemIndex} toggle={this.toggle}>
       {name} 
       </Tooltip>
+      </div>
       );
     }
-    else{
-      return <input id={"inputX" + itemIndex} type="text" placeholder={name} autofocus></input>;
+    else {
+      return <div>{name}</div> ;
     }
                 
 }
@@ -83,11 +83,7 @@ renderCategoryItem = (name, itemIndex) => {
                 <CSSTransition key={id} timeout={500} classNames="fade">
                   <ListGroupItem>
 
-                    {/* <input id={"inputX" + itemIndex} type="text" placeholder={name} autofocus></input> */}
-
-                    {/* <Tooltip id={"tooltip" + itemIndex} className="toolTip" placement="right" isOpen={this.state.toolTips["inputX" + itemIndex]} target={"inputX" + itemIndex} toggle={this.toggle}> */}
-                    {name} 
-                    {/* </Tooltip> */}
+                    {this.renderCategoryItem(name, itemIndex)}
                 
 
                     <div style={{ display: "none" }}>{itemIndex++}</div>
@@ -97,10 +93,11 @@ renderCategoryItem = (name, itemIndex) => {
             </TransitionGroup>
           </ListGroup>
         </div>
-
+          <hr/>      
         <Timer />
         <DiceRoller />
         <Players />
+        <Ready/>
       </Container>
     );
   }
@@ -117,5 +114,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems, getPlayers }
+  { getItems }
 )(CategoriesList);

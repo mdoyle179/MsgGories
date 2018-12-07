@@ -5,29 +5,26 @@ const fs = require('fs');
 const uuid = require("uuid");
 const gmailHelper = new GmailHelper();
 
-// @route GET api/items
-// @desc Get All Items
-router.get("/", (req, res) => {
 
+router.get("/players", (req, res) => {
+    console.log("In players route")
+    var players = [];
+    var player1 = { name: "Ag", score: 0 };
+    var player2 = { name: "Matt", score: 0 };
+    var player3 = { name: "Kenna", score: 0 };
+    players.push(player1);
+    players.push(player2);
+    players.push(player3);
+    res.json(players);
+    console.log(players);
 });
 
-// @route POST api/items
-// @desc Create Post
-router.post("/", (req, res) => {
-
-});
-
-// @route Delete api/items
-// @desc Delete Item
-router.delete("/:id", (req, res) => {
-
-});
 
 // This uuid should be created when the start game is clicked
 // generating it here for just testing
 let uniqueId = uuid();
 
-let playersEmails = ["msggories@gmail.com", "mdoyle179@gmail.com"];
+let playersEmails = ["msggories@gmail.com"];
 
 // @desc Sends the email to the players
 router.get("/sendMessage", (req, res) => {

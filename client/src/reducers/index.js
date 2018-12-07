@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import itemReducer from "./itemReducer";
+import mainGameReducer from "./mainGameReducer";
 
 export default combineReducers({
-  itemsReducerInstance: itemReducer
+  itemsReducerInstance: mainGameReducer
 });

@@ -6,14 +6,11 @@ import { connect } from "react-redux";
 import { getPlayers} from "../actions/itemActions";
 
 class Players extends Component {
-    componentDidMount() {
-      this.props.getPlayers();
-      const { players } = this.props.itemsReducerInstance;
-      for (var i =0; i < players.length; i++)
-      {
-        console.log(players[i]);
-      }
-      }
+  constructor(props) {
+    super(props);
+    props.getPlayers();
+  }
+
     
     
       render() {
