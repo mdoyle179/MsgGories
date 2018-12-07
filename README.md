@@ -30,3 +30,10 @@ It's probably better to learn from the command line, but SourceTree will help yo
    Here is a possibility for our branching structure:
 master: Contains our tested/working code.
 dev: Contains our current development work. (dev will be a branch off of master)
+
+Connecting up to the Database: 
+1) Install MongoDB Compass to your computer (There are iOS and Windows installers at https://www.mongodb.com/products/compass )
+2) Create a DB in Compass and add a "collection" called Players ...pay attention to letter case!
+3) Add the DB name created in step 2 to the end of mongoURI: "mongodb://localhost:27017/ in the config/keys.js file. 
+4) Uncomment out the DB connection code in server.js 
+5) Once application is started verify "MongoDB Connected" is received in the terminal logwin. 

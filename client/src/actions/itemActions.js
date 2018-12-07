@@ -1,6 +1,6 @@
 import {
     GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS,
-    SEND_PLAYER_EMAILS, GET_PLAYER_RESPONSES
+    SEND_PLAYER_EMAILS, GET_PLAYER_RESPONSES,UPDATE_PLAYER
 } from "../actions/types";
 import axios from "axios";
 
@@ -16,7 +16,7 @@ export const getItems = () => dispatch => {
 };
 
 export const getPlayers = () => dispatch => {
-    axios.get("./api/items/players").then(res =>
+    axios.get("./api/players").then(res =>
         dispatch({
             type: GET_PLAYERS,
             payload: res.data
@@ -24,6 +24,14 @@ export const getPlayers = () => dispatch => {
     );
 };
 
+export const updatePlayer = () => dispatch => {
+    axios.put("./api/players").then(res =>
+        dispatch({
+            type: UPDATE_PLAYER,
+            payload: res.data
+        })
+    );
+};
 
 export const getPlayerResponses = () => {
     return {
