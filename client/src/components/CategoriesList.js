@@ -34,11 +34,6 @@ class CategoriesList extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.getPlayers();
-    this.props.getItems();
-
-  }
   
   toggle(event) {
 
@@ -98,7 +93,7 @@ renderCategoryItem = (name, itemIndex) => {
             </TransitionGroup>
           </ListGroup>
         </div>
-
+          <hr/>      
         <Timer />
         <DiceRoller />
         <Players />
@@ -119,5 +114,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems, getPlayers }
+  { getItems }
 )(CategoriesList);

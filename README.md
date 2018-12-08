@@ -30,3 +30,22 @@ It's probably better to learn from the command line, but SourceTree will help yo
    Here is a possibility for our branching structure:
 master: Contains our tested/working code.
 dev: Contains our current development work. (dev will be a branch off of master)
+
+Connecting up to the Database using GUI: 
+1) Install MongoDB to your computer (installs found at  https://docs.mongodb.com/manual/installation/ )
+2) download a copy of players.csv from the repo 
+3) two ways to create DB with collection: 
+    a) with the MongoDB Compass GUI: 
+        i) install Compass to your computer (There are iOS and Windows installers at https://www.mongodb.com/products/compass )
+        ii) Create a DB called "msggories" in Compass and add a "collection" called Players ...pay attention to letter case!
+    b) with the MongoDB shell:
+        i) execute the following command at the location where mongoDB is installed: 
+        mongo --shell 
+        use msggories 
+        db.createCollection("Players")
+        ii) control c to exit the shell. 
+        
+4) execute the following command at the folder location where mongoDB is installed to import players to the db, where /path/to/the/ represents the path to where you saved the file in step 2: mongoimport --db msggories --collection Players --type csv --file /path/to/the/players.csv --headerline
+5) Uncomment out the DB connection code in server.js 
+6) Once application is started verify "MongoDB Connected" is received in the terminal logwin. 
+

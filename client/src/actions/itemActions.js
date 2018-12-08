@@ -1,7 +1,16 @@
 import axios from "axios";
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS,
-   SEND_PLAYER_EMAILS, GET_PLAYER_RESPONSES, START_GAME, UPDATE_LETTER, NEXT_ROUND, TIMES_UP} from "../actions/types";
+   SEND_PLAYER_EMAILS, GET_PLAYER_RESPONSES, START_GAME, UPDATE_LETTER, NEXT_ROUND, TIMES_UP,UPDATE_PLAYER} from "../actions/types";
 
+
+export const getPlayers = () => dispatch => {
+    axios.get("./api/players/").then(res =>
+        dispatch({
+            type: GET_PLAYERS,
+            payload: res.data
+        })
+    );
+};
 export const getItems = ()=> {
   return{
       type: GET_ITEMS,
@@ -10,20 +19,25 @@ export const getItems = ()=> {
 }
 
 
-export const getPlayers = () => dispatch => {
-    axios.get("./api/items/players").then(res =>
+export const updatePlayer = () => dispatch => {
+    axios.put("./api/players").then(res =>
         dispatch({
-            type: GET_PLAYERS,
+            type: UPDATE_PLAYER,
             payload: res.data
         })
     );
 };
 
-
 export const getPlayerResponses = () => {
     return {
         type: GET_PLAYER_RESPONSES
     };
+};
+
+export const nextRound = () => {
+  return {
+    type: NEXT_ROUND
+  };
 };
 
 export const updateLetter = (letter) => {
@@ -33,13 +47,13 @@ export const updateLetter = (letter) => {
   };
 };
 
-export const nextRound = () => {
+export const timesUp = () => {
   return {
-    type: NEXT_ROUND
+    type: TIMES_UP
   };
 };
 
-export const timesUp = () => {
+export const sendPlayerEmails = () => {
   return {
     type: TIMES_UP
   };

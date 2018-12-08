@@ -19,19 +19,22 @@ class Timer extends React.Component {
   }
 
   startTimer() {
+    var self=this;
     this.props.startGame();
-    this.setState({
-      time: this.state.time,
-      start: Date.now() - this.state.time,
+    setTimeout(function(){
+      self.setState({
+      time: self.state.time,
+      start: Date.now() - self.state.time,
       isOn: true
     });
-    this.timer = setInterval(
+    self.timer = setInterval(
       () =>
-        this.setState({
-          time: Date.now() - this.state.start
+      self.setState({
+          time: Date.now() - self.state.start
         }),
       1
     );
+      }, 5000);
   }
 
   stopTimer() {
