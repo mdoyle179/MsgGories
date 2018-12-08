@@ -24,7 +24,7 @@ router.get("/players", (req, res) => {
 // generating it here for just testing
 let uniqueId = uuid();
 
-let playersEmails = ["msggories@gmail.com", "mdoyle179@gmail.com"];
+let playersEmails = ["msggories@gmail.com"];
 let categories = ["Boy Names", "People", "Country", "Food"];
 
 // @desc Sends the email to the players
@@ -37,6 +37,7 @@ router.get("/sendMessage", (req, res) => {
 router.get("/getMessages", (req, res) => {
     // round id will also be passed here
     authorize(readEmails, uniqueId, "1", playersEmails);
+    console.log("in get messages");
 });
 
 function authorize(callback, gameId, roundNumber, playersEmails, categories) {
@@ -50,7 +51,7 @@ function authorize(callback, gameId, roundNumber, playersEmails, categories) {
 
 function sendEmail(auth, roundNumber, gameId, playersEmails, categories) {
 
-    let content = gmailHelper.createContentTable(categories);
+    let content = gmailHelper.createPlainTextMessage(categories);
     for (let i = 0; i < playersEmails.length; i++) {
         let email = gmailHelper.createEmail(content, roundNumber, gameId, playersEmails[i]);
 

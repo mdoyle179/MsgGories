@@ -2,15 +2,17 @@ const readline = require('readline');
 const { google } = require('googleapis');
 const fs = require('fs');
 const Base64 = require('js-base64').Base64;
-
+const parseMessage = require('gmail-api-parse-message');
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.send', 'https://www.googleapis.com/auth/gmail.compose'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
 const TOKEN_PATH = 'token.json';
+const DELIMITER = ":::";
 
 class GmailHelper {
+
     /**
      * Create an OAuth2 client with the given credentials, and then execute the
      * given callback function.
@@ -61,28 +63,13 @@ class GmailHelper {
             });
         });
     }
-    createContentTable(categories) {
-        let content = "";
-        content += "<html><body>";
-        content += "<table width='100%'><tr><td>"; // Outer table
-        content += "<table width='60%'>"; // Nested table
-
-        // content += "<tr><td width='70%'>So is this</td><td width='30%'>9999</td></tr>";
-        content += "</table>";
-        content += "</td></tr></table>";
-        content += "</body></html>";
-        for (let i = 0; i < categories.length; i++) {
-            content += "<tr><td width='40%'>" + categories[i] + "</td><td width='60%'>__________</td></tr>";
-        }
-        return content;
-    }
 
     createPlainTextMessage(categories) {
-        let delimiter = ":::";
-        let content = "Enter your response on each line after the " + delimiter + "\n";
+
+        let content = "Enter your response on each line after the 3 colons\n";
 
         for (let i = 0; i < categories.length; i++) {
-            content += categories[i] + delimiter + "\n";
+            content += categories[i] + DELIMITER + "\n";
         }
         return content;
     }
@@ -92,15 +79,13 @@ class GmailHelper {
         let subject = this.createSubject(gameId, roundNumber, false);
 
         let email = [
-            "Content-Type: text/html; charset=\"UTF-8\"\n",
+            "Content-Type: text/plain; charset=\"UTF-8\"\n",
             "MIME-Version: 1.0\n",
             "Content-Transfer-Encoding: base64\n",
             "To: ", playerEmail, "\n",
             "From: ", userId, "\n",
             "Subject: ", subject, "\n\n",
-            "<html><body>" +
-            content +
-            "</body></html>"
+            content
         ].join('');
 
         let base64EncodedEmail = Base64.encodeURI(email);
@@ -136,6 +121,8 @@ class GmailHelper {
         const gmail = google.gmail({ version: 'v1', auth });
         let userId = "me";
         let subject = this.createSubject(gameId, roundNumber, true);
+        // let subject = this.createSubject("306cc944-1a6a-43ab-98d5-bc881160d286", roundNumber, true);
+
         let playersThatResponded = [];
 
         // Get all messages in the inbox
@@ -157,8 +144,9 @@ class GmailHelper {
                             let playerResponse = this.getPlayerResponse(res.data, subject, playersEmails);
                             if (Object.keys(playerResponse).length > 0) {
                                 playersThatResponded.push(playerResponse);
-                                console.log("player email = " + playerResponse.playerEmail);
-                                console.log("message content = " + playerResponse.messageContent);
+                                console.log(JSON.stringify(playersThatResponded));
+                                // console.log("player email = " + playerResponse.playerEmail);
+                                // console.log("message content = " + playerResponse.messageContent);
                             }
                         }
                     });
@@ -168,7 +156,6 @@ class GmailHelper {
     }
 
     getPlayerResponse(response, replySubject, playersEmails) {
-        // console.log('in isplayerresponse');
         let objectToReturn = {};
         let headers = response.payload.headers;
         let subject = "";
@@ -184,27 +171,47 @@ class GmailHelper {
                 from = headers[j].value;
             }
         }
-        // console.log("subject = " + subject);
-        // console.log("from = " + from);
 
         // See if the subject matches the one we are looking for
         if (subject === replySubject) {
-            console.log("Found a reply subject = " + subject);
+            // console.log("Found a reply subject = " + subject);
 
             // See if it matches the players email
             if (playersEmails.indexOf(from)) {
-                console.log("Found the person = " + from);
+                // console.log("Found the person = " + from);
             }
             objectToReturn.playerEmail = from;
-            objectToReturn.messageContent = response.snippet;
+
+            objectToReturn.responses = this.parseAnswers(response);
         }
 
         return objectToReturn;
     }
 
-    // parseAnswers(messageContent) {
+    parseAnswers(messageContent) {
+        let parsedMessage = parseMessage(messageContent);
+        let plainTextMsg = parsedMessage.textPlain;
+        let messageLines = plainTextMsg.split("\n");
 
-    // }
+        let userResponses = [];
+        for (let i = 0; i < messageLines.length; i++) {
+            let lineParts = messageLines[i].split(DELIMITER);
+            if (lineParts[0] && lineParts[1]) {
+                let reArrow = /> /;
+                let reR = /\r/;
+                let question = lineParts[0].replace(reArrow, "");
+                let answer = lineParts[1].replace(reR, "");
+                // console.log("QUESTION = " + noExtraCharsQuestion + " ANSWER = " + lineParts[1]);
+                let userResponse = {
+                    "question": question,
+                    "answer": answer
+                }
+                userResponses.push(userResponse);
+            }
+        }
+
+        return userResponses;
+    }
 }
 
 module.exports = GmailHelper;
