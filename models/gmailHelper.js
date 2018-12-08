@@ -17,7 +17,7 @@ class GmailHelper {
      * @param {Object} credentials The authorization client credentials.
      * @param {function} callback The callback to call with the authorized client.
      */
-    authorize(credentials, callback, gameId, roundNumber, playersEmails) {
+    authorize(credentials, callback, gameId, roundNumber, playersEmails, categories) {
         const { client_secret, client_id, redirect_uris } = credentials.installed;
         const oAuth2Client = new google.auth.OAuth2(
             client_id, client_secret, redirect_uris[0]);
@@ -26,7 +26,7 @@ class GmailHelper {
         fs.readFile(TOKEN_PATH, (err, token) => {
             if (err) return this.getNewToken(oAuth2Client, callback);
             oAuth2Client.setCredentials(JSON.parse(token));
-            callback(oAuth2Client, gameId, roundNumber, playersEmails);
+            callback(oAuth2Client, gameId, roundNumber, playersEmails, categories);
         });
     }
 
@@ -76,6 +76,17 @@ class GmailHelper {
         }
         return content;
     }
+
+    createPlainTextMessage(categories) {
+        let delimiter = ":::";
+        let content = "Enter your response on each line after the " + delimiter + "\n";
+
+        for (let i = 0; i < categories.length; i++) {
+            content += categories[i] + delimiter + "\n";
+        }
+        return content;
+    }
+
     createEmail(content, gameId, roundNumber, playerEmail) {
         let userId = "me";
         let subject = this.createSubject(gameId, roundNumber, false);
@@ -190,6 +201,10 @@ class GmailHelper {
 
         return objectToReturn;
     }
+
+    // parseAnswers(messageContent) {
+
+    // }
 }
 
 module.exports = GmailHelper;
