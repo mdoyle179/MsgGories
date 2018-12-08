@@ -9,7 +9,6 @@ import {
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import { connect } from "react-redux";
-import { addItem } from "../actions/itemActions";
 
 class Splash extends Component {
   state = {
@@ -71,5 +70,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addItem }
+  {  }
 )(Splash);

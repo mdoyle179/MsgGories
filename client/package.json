@@ -23,6 +23,6 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
-    "@types/reactstrap": "^6.4.2"
+    "@types/reactstrap": "^6.4.3"
   }
 }
