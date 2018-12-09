@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+
+const players = require("./routes/api/players");
 const game = require("./routes/api/game");
 const app = express();
 
@@ -11,13 +13,14 @@ app.use(bodyParser.json());
 const db = require("./config/keys").mongoURI;
 
 //Connect to Mongo
-// mongoose
-//   .connect(db)
-//   .then(() => console.log("MongoDB Connected"))
-//   .catch(err => console.log(err));
+mongoose
+   .connect(db)
+   .then(() => console.log("MongoDB Connected"))
+   .catch(err => console.log(err));
 
 const port = process.env.PORT || 5000;
 
+app.use("/api/players", players);
 app.use("/api/game", game);
 
 

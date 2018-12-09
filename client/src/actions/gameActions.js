@@ -1,10 +1,9 @@
 import axios from "axios";
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PLAYERS,
-   SEND_PLAYER_EMAILS, GET_PLAYER_RESPONSES, START_GAME, UPDATE_LETTER, NEXT_ROUND, TIMES_UP} from "./types";
-
+   SEND_PLAYER_EMAILS, GET_PLAYER_RESPONSES, START_GAME, UPDATE_LETTER, NEXT_ROUND, TIMES_UP, UPDATE_PLAYER} from "./types";
 
 export const getPlayers = () => dispatch => {
-    axios.get("./api/game/players").then(res =>
+    axios.get("./api/players/").then(res =>
         dispatch({
             type: GET_PLAYERS,
             payload: res.data
@@ -19,6 +18,14 @@ export const getItems = ()=> {
 }
 
 
+export const updatePlayer = () => dispatch => {
+    axios.put("./api/players").then(res =>
+        dispatch({
+            type: UPDATE_PLAYER,
+            payload: res.data
+        })
+    );
+};
 
 export const getPlayerResponses = () => {
     return {
@@ -59,16 +66,13 @@ export const sendPLayerEmails = () => {
 };
 
 
-export const startGame =  ()  => {
+export const startGame =  gameData => dispatch  => {
 
-  //axios.post('/api/game/sendPlayerMessages', gameData);
-  // dispatch({
-  //   type: START_GAME
-  // });
-
-  return {
-    type: START_GAME
-};  
+  axios.post('/api/game/sendPlayerMessages', gameData);
+   dispatch({
+     type: START_GAME
+   });
+  
 };
 
 

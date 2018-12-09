@@ -63,6 +63,7 @@ function readEmails(auth, roundNumber, gameId, playersEmails) {
 
 
 router.post('/sendPlayerMessages', (req, res) => {
+    console.log("Seding player messages...")
     console.log(req.body.players);
     console.log(req.body.gameSessionID);
     console.log(req.body.currentRound);

@@ -20,25 +20,25 @@ class Timer extends React.Component {
   }
 
   startTimer() {
-    // const {players} = this.props.gameReducerInstance;
-    // const {msgGories} = this.props.gameReducerInstance;
-    // const {currentRound} = this.props.gameReducerInstance;
+    const {players} = this.props.gameReducerInstance;
+    const {msgGories} = this.props.gameReducerInstance;
+    const {currentRound} = this.props.gameReducerInstance;
     
-    // var thisRound = currentRound + 1;
+    var thisRound = currentRound + 1;
   
     var self=this;
-    // var gameSessionID = uuid();
+    var gameSessionID = uuid();
 
 
-    // const gameData = {
-    //   gameSessionID: gameSessionID,
-    //   currentRound: 1,
-    //   players: players,
-    //   categories: msgGories[thisRound -1]
-    // }
+    const gameData = {
+      gameSessionID: gameSessionID,
+      currentRound: 1,
+      players: players,
+      categories: msgGories[thisRound -1].items
+    }
 
 
-    this.props.startGame();
+    this.props.startGame(gameData);
     setTimeout(function(){
       self.setState({
       time: self.state.time,
