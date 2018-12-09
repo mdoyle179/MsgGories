@@ -10,7 +10,8 @@ router.post("/", (req, res) => {
   const newplayer = new Player({
     _id: req.body.id,
     name: req.body.name,
-    score: req.body.score
+    score: req.body.score,
+    email: req.body.email
   });
 
   newplayer.save().then(player => res.json(player));
@@ -25,7 +26,6 @@ router.get("/", (req, res) => {
   Player.find({}).lean().exec(function (err, players) {
     var thePlayers = [];
     players = players.map(function (v) {
-      delete (v._id);
       console.log(v);
       thePlayers.push(v);
     });
@@ -50,12 +50,11 @@ router.delete("/:_id", (req, res) => {
     .catch(err => res.status(404).json({ success: false }));
 });
 
-router.put("/:_id", (req, res) => {
-  Player.findByIdAndUpdate(req.params.id, { set$: req.body }, { new: false }, function (err, result) {
-    if (err) {
-      console.log(err);
-    }
-    res.send('Done')
+router.put("/", (req, res) => {
+  var query = {'_id':req.body._id};
+  Player.findOneAndUpdate(query, req.body, {upsert:true}, function(err, doc){
+      if (err) return res.send(500, { error: err });
+      return res.send("succesfully saved");
   });
 });
 
