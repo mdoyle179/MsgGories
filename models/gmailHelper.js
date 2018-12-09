@@ -145,8 +145,6 @@ class GmailHelper {
                             if (Object.keys(playerResponse).length > 0) {
                                 playersThatResponded.push(playerResponse);
                                 console.log(JSON.stringify(playersThatResponded));
-                                // console.log("player email = " + playerResponse.playerEmail);
-                                // console.log("message content = " + playerResponse.messageContent);
                             }
                         }
                     });

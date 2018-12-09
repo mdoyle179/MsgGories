@@ -9,10 +9,10 @@ var category1 = {
       name: "School Supplies"
     },
     {
-      name: "Reasons to Make a Phone Call"
+      name: "Reason to Make a Call"
     },
     {
-      name: "Things That Have Wheels"
+      name: "Things With Wheels"
     },
     {
       name: "Fictional Characters"
