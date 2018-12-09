@@ -31,7 +31,7 @@ It's probably better to learn from the command line, but SourceTree will help yo
 master: Contains our tested/working code.
 dev: Contains our current development work. (dev will be a branch off of master)
 
-Connecting up to the Database using GUI: 
+Connecting up to the Database:
 1) Install MongoDB to your computer (installs found at  https://docs.mongodb.com/manual/installation/ )
 2) download a copy of players.csv from the repo 
 3) two ways to create DB with collection: 
