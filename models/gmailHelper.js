@@ -119,39 +119,45 @@ class GmailHelper {
         return subject;
     }
 
-    readEmails(auth, gameId, roundNumber, playersEmails) {
+    getAllMessages(auth) {
         const gmail = google.gmail({ version: 'v1', auth });
         let userId = "me";
-        let subject = this.createSubject(gameId, roundNumber, true);
-        // let subject = this.createSubject("306cc944-1a6a-43ab-98d5-bc881160d286", roundNumber, true);
 
-        let playersThatResponded = [];
-
-        // Get all messages in the inbox
-        gmail.users.messages.list({
-            'userId': userId,
-        }, (err, res) => {
-            if (err) return console.log('The API returned an error: ' + err);
-            else {
-                let messages = res.data.messages;
-
-                for (let i = 0; i < messages.length; i++) {
-                    // Get the actual message objects
-                    gmail.users.messages.get({
-                        'userId': userId,
-                        'id': messages[i].id
-                    }, (err, res) => {
-                        if (err) return console.log('The API returned an error: ' + err);
-                        else {
-                            let playerResponse = this.getPlayerResponse(res.data, subject, playersEmails);
-                            if (Object.keys(playerResponse).length > 0) {
-                                playersThatResponded.push(playerResponse);
-                                console.log(JSON.stringify(playersThatResponded));
-                            }
-                        }
-                    });
+        return new Promise((resolve, reject) => {
+            // Get all messages in the inbox
+            gmail.users.messages.list({
+                'userId': userId,
+            }, (err, res) => {
+                if (err) return console.log('The API returned an error: ' + err);
+                else {
+                    let messages = res.data.messages;
+                    resolve(messages);
                 }
-                return playersThatResponded;
+            });
+        });
+    }
+
+    readEmails(auth, messages, gameId, roundNumber, playersEmails) {
+        const gmail = google.gmail({ version: 'v1', auth });
+        let subject = this.createSubject(gameId, roundNumber, true);
+        let userId = "me";
+
+        return new Promise((resolve, reject) => {
+
+            for (let i = 0; i < messages.length; i++) {
+                // Get the actual message objects
+                gmail.users.messages.get({
+                    'userId': userId,
+                    'id': messages[i].id
+                }, (err, res) => {
+                    if (err) return console.log('The API returned an error: ' + err);
+                    else {
+                        let playerResponse = this.getPlayerResponse(res.data, subject, playersEmails);
+                        if (Object.keys(playerResponse).length > 0) {
+                            resolve(playerResponse);
+                        }
+                    }
+                });
             }
         });
     }

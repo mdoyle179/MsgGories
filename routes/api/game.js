@@ -30,19 +30,22 @@ router.post("/sendMessage", (req, res) => {
 // @desc Gets the emails from the players
 router.get("/getMessages", (req, res) => {
 
+    let oauth2client = "";
     readClientSecret()
         .then(clientSecretJson => {
             let clientSecret = JSON.parse(clientSecretJson);
             return gmailHelper.authorize(clientSecret);
-        }).then(oauth2client => {
-            readEmails(oauth2client, req.body.gameId, req.body.roundId, req.body.playersEmails);
+        }).then(oauth2 => {
+            oauth2client = oauth2
+            return gmailHelper.getAllMessages(oauth2client);
         }).catch(error => {
             console.error(error);
+        }).then(allEmails => {
+            return gmailHelper.readEmails(oauth2client, allEmails, req.body.gameId, req.body.roundId, req.body.playerEmail);
+        }).then(playerThatResponded => {
+            console.log(JSON.stringify(playerThatResponded));
+            res.send(playerThatResponded);
         });
-
-    // authorize, return that oauth2client,
-    // wait for that to finish, then getEmails with it,
-    // wait to get all the emails
 });
 
 function readClientSecret() {
@@ -56,19 +59,12 @@ function readClientSecret() {
 }
 
 function sendEmail(auth, roundNumber, gameId, playersEmails, categories) {
-
     let content = gmailHelper.createPlainTextMessage(categories);
     for (let i = 0; i < playersEmails.length; i++) {
         let email = gmailHelper.createEmail(content, roundNumber, gameId, playersEmails[i]);
 
         gmailHelper.sendEmail(auth, email);
     }
-}
-
-function readEmails(auth, roundNumber, gameId, playersEmails) {
-    gmailHelper.readEmails(auth, roundNumber, gameId, playersEmails);
-    // console.log(objectsReturned.length);
-    console.log("in read emails");
 }
 
 router.post('/sendPlayerMessages', (req, res) => {
