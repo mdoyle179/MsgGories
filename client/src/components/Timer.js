@@ -23,6 +23,7 @@ class Timer extends React.Component {
     const {players} = this.props.gameReducerInstance;
     const {msgGories} = this.props.gameReducerInstance;
     const {currentRound} = this.props.gameReducerInstance;
+    const {letter} = this.props.gameReducerInstance;
     
     var thisRound = currentRound + 1;
   
@@ -34,7 +35,9 @@ class Timer extends React.Component {
       gameSessionID: gameSessionID,
       currentRound: 1,
       players: players,
-      categories: msgGories[thisRound -1].items
+      categories: msgGories[thisRound -1].items,
+      letter: letter
+
     }
 
 

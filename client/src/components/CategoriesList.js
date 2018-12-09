@@ -38,29 +38,17 @@ class CategoriesList extends Component {
   }
 
   onChange = e => {
-    console.log(e.target.id + " " + e.target.value);
+    console.log(e.target.name + " " + e.target.value);
 
     var answersObject = this.state.answersObject;
 
-    answersObject[e.target.id] = e.target.value;
+    answersObject[e.target.name] = e.target.value;
     this.setState({ "answersObject": answersObject });
-  };    
+  };
   componentDidMount = () => {
     console.log("mounting Cats List Component")
   }
 
-  initAnswersArray = () => {
-    const self = this;
-    for (var roundNo = 0; roundNo <= 2; roundNo++) {
-      self.props.gameAnswers.push(roundNo);
-      self.props.gameAnswers[roundNo] = [];
-
-      for (var i = 0; i <= 6; i++) {
-        self.props.gameAnswers[roundNo].push(null);
-      }
-    }
-     
-  }
 
   toggle(event) {
 
@@ -82,9 +70,13 @@ class CategoriesList extends Component {
 
   }
 
-  renderSubmit = () =>{
+  renderSubmit = () => {
     const { gameStarted } = this.props.gameReducerInstance;
-    if (gameStarted) return <button >Submit ME Beotch</button>
+    if (gameStarted) return (
+
+      <div><button >Submit Answers</button></div>
+    )
+    else return null
   }
   renderCategoryItem = (name, itemIndex) => {
     const { action } = this.props.gameReducerInstance;
@@ -93,7 +85,7 @@ class CategoriesList extends Component {
     if (gameStarted) {
       return (
         <div>
-          <input id={"inputX" + itemIndex} onChange={this.onChange} type="text" placeholder={name} autofocus ></input>
+          <input name={itemIndex} id={"inputX" + itemIndex} onBlur={this.onChange} type="text" placeholder={name} autofocus ></input>
           <Tooltip id={"tooltip" + itemIndex} className="toolTip" placement="right" isOpen={this.state.toolTips["inputX" + itemIndex]} target={"inputX" + itemIndex} toggle={this.toggle}>
             {name}
           </Tooltip>
@@ -114,26 +106,28 @@ class CategoriesList extends Component {
       <Container id="itemList">
         <div id="logoPic" />
         <div id="logo">MsgGories</div>
-        <div id="stage">
         <form onSubmit={this.onSubmit}>
-          <ListGroup>
-            <TransitionGroup>
-              {currentCategories.map(({ id, name }) => (
-                <CSSTransition key={id} timeout={500} classNames="fade">
-                  <ListGroupItem>
+          <div id="stage">
 
-                    {this.renderCategoryItem(name, itemIndex)}
+            <ListGroup>
+              <TransitionGroup>
+                {currentCategories.map(({ id, name }) => (
+                  <CSSTransition key={id} timeout={500} classNames="fade">
+                    <ListGroupItem>
+
+                      {this.renderCategoryItem(name, itemIndex)}
 
 
-                    <div style={{ display: "none" }}>{itemIndex++}</div>
-                  </ListGroupItem>
-                </CSSTransition>
-              ))}
-            </TransitionGroup>
-          </ListGroup>
-          </form>
-        </div>
-        this.renderSubmit()
+                      <div style={{ display: "none" }}>{itemIndex++}</div>
+                    </ListGroupItem>
+                  </CSSTransition>
+                ))}
+              </TransitionGroup>
+            </ListGroup>
+ 
+          </div>
+          {this.renderSubmit()}
+        </form>
         <hr />
         <Timer />
         <DiceRoller />
@@ -150,8 +144,8 @@ CategoriesList.propTypes = {
 
 const mapStateToProps = state => ({
   gameReducerInstance: state.gameReducerInstance,
-  gameAnswers : state.gameReducerInstance.gameAnswers,
-  currentRound : state.gameReducerInstance.currentRound
+  gameAnswers: state.gameReducerInstance.gameAnswers,
+  currentRound: state.gameReducerInstance.currentRound
 });
 
 export default connect(
