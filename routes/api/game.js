@@ -28,16 +28,21 @@ let playersEmails = ["msggories@gmail.com"];
 let categories = ["Boy Names", "People", "Country", "Food"];
 
 // @desc Sends the email to the players
-router.get("/sendMessage", (req, res) => {
-    // round id will also be passed here
-    authorize(sendEmail, uniqueId, "1", playersEmails, categories);
+router.post("/sendMessage", (req, res) => {
+    for (let i = 0; i < req.body.playersEmails.length; i++) {
+        console.log(req.body.playersEmails[i]);
+    }
+    authorize(sendEmail, req.body.gameId, req.body.roundId, req.body.playersEmails, req.body.categories);
+    console.log(req.body.gameId);
+    res.send('sent message for ' + req.body.gameId);
 });
 
 // @desc Gets the emails from the players
 router.get("/getMessages", (req, res) => {
     // round id will also be passed here
-    authorize(readEmails, uniqueId, "1", playersEmails);
-    console.log("in get messages");
+    authorize(readEmails, req.body.gameId, req.body.roundId, req.body.playersEmails);
+    console.log("in get messages " + req.body.gameId);
+    res.send("received messages for " + req.body.gameId);
 });
 
 function authorize(callback, gameId, roundNumber, playersEmails, categories) {
