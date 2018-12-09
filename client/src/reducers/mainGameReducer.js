@@ -1,4 +1,4 @@
-import { GET_ITEMS, GET_PLAYERS, GET_PLAYER_RESPONSES, SEND_PLAYER_EMAILS, START_GAME, UPDATE_LETTER } from "../actions/types";
+import { GET_ITEMS, GET_PLAYERS, GET_PLAYER_RESPONSES, SEND_PLAYER_EMAILS, START_GAME, UPDATE_LETTER, TIMES_UP } from "../actions/types";
 var category1 = {
   items: [
     {
@@ -88,7 +88,8 @@ const initialState = {
   currentRound: 0,
   maxRounds: 3,
   gameOver: false,
-  gameSessionID: null
+  gameSessionID: null,
+  gameAnswers: []
 
 };
 
@@ -131,6 +132,12 @@ export default function (state = initialState, action) {
 
 
       };
+
+    case TIMES_UP:
+    console.log(state.gameAnswers)
+    return {
+      ...state
+    }
     case GET_PLAYER_RESPONSES:
       return {
         ...state
