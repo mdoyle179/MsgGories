@@ -181,14 +181,12 @@ class GmailHelper {
 
         // See if the subject matches the one we are looking for
         if (subject === replySubject) {
-            // console.log("Found a reply subject = " + subject);
-
             // See if it matches the players email
-            if (playerEmail.indexOf(from)) {
+            if (from.includes(playerEmail)) {
                 // console.log("Found the person = " + from);
+                objectToReturn.playerEmail = playerEmail;
+                objectToReturn.responses = this.parseAnswers(response);
             }
-            objectToReturn.playerEmail = playerEmail;
-            objectToReturn.responses = this.parseAnswers(response);
         }
 
         return objectToReturn;
