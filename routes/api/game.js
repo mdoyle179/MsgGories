@@ -2,30 +2,20 @@ const express = require("express");
 const router = express.Router();
 const GmailHelper = require("../../models/gmailHelper");
 const fs = require('fs');
-const uuid = require("uuid");
 const gmailHelper = new GmailHelper();
-
 
 router.get("/players", (req, res) => {
     console.log("In players route")
     var players = [];
     var player1 = { name: "Ag", email: "agdel.m.irlanda", score: 0 };
-    var player2 = { name: "Matt",email: "mdoyle@gmail.com", score: 0 };
-    var player3 = { name: "Kenna",email:"kb", score: 0 };
+    var player2 = { name: "Matt", email: "mdoyle@gmail.com", score: 0 };
+    var player3 = { name: "Kenna", email: "kb", score: 0 };
     players.push(player1);
     players.push(player2);
     players.push(player3);
     res.json(players);
     console.log(players);
 });
-
-
-// This uuid should be created when the start game is clicked
-// generating it here for just testing
-let uniqueId = uuid();
-
-let playersEmails = ["msggories@gmail.com"];
-let categories = ["Boy Names", "People", "Country", "Food"];
 
 // @desc Sends the email to the players
 router.post("/sendMessage", (req, res) => {
@@ -39,19 +29,30 @@ router.post("/sendMessage", (req, res) => {
 
 // @desc Gets the emails from the players
 router.get("/getMessages", (req, res) => {
-    // round id will also be passed here
-    authorize(readEmails, req.body.gameId, req.body.roundId, req.body.playersEmails);
-    console.log("in get messages " + req.body.gameId);
-    res.send("received messages for " + req.body.gameId);
+
+    readClientSecret()
+        .then(clientSecretJson => {
+            let clientSecret = JSON.parse(clientSecretJson);
+            return gmailHelper.authorize(clientSecret);
+        }).then(oauth2client => {
+            readEmails(oauth2client, req.body.gameId, req.body.roundId, req.body.playersEmails);
+        }).catch(error => {
+            console.error(error);
+        });
+
+    // authorize, return that oauth2client,
+    // wait for that to finish, then getEmails with it,
+    // wait to get all the emails
 });
 
-function authorize(callback, gameId, roundNumber, playersEmails, categories) {
+function readClientSecret() {
     // Load client secrets from a local file.
-    fs.readFile('credentials.json', (err, content) => {
-        if (err) return console.log('Error loading client secret file:', err);
-        // Authorize a client with credentials, then call the Gmail API.
-        gmailHelper.authorize(JSON.parse(content), callback, gameId, roundNumber, playersEmails, categories);
-    });
+    return new Promise((resolve, reject) => {
+        fs.readFile('credentials.json', (err, content) => {
+            if (err) return console.log('Error loading client secret file:', err);
+            return resolve(content);
+        });
+    })
 }
 
 function sendEmail(auth, roundNumber, gameId, playersEmails, categories) {
@@ -66,8 +67,9 @@ function sendEmail(auth, roundNumber, gameId, playersEmails, categories) {
 
 function readEmails(auth, roundNumber, gameId, playersEmails) {
     gmailHelper.readEmails(auth, roundNumber, gameId, playersEmails);
+    // console.log(objectsReturned.length);
+    console.log("in read emails");
 }
-
 
 router.post('/sendPlayerMessages', (req, res) => {
     console.log("Seding player messages...")

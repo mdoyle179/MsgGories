@@ -19,26 +19,27 @@ class GmailHelper {
      * @param {Object} credentials The authorization client credentials.
      * @param {function} callback The callback to call with the authorized client.
      */
-    authorize(credentials, callback, gameId, roundNumber, playersEmails, categories) {
+    authorize(credentials) {
         const { client_secret, client_id, redirect_uris } = credentials.installed;
         const oAuth2Client = new google.auth.OAuth2(
             client_id, client_secret, redirect_uris[0]);
 
-        // Check if we have previously stored a token.
-        fs.readFile(TOKEN_PATH, (err, token) => {
-            if (err) return this.getNewToken(oAuth2Client, callback);
-            oAuth2Client.setCredentials(JSON.parse(token));
-            callback(oAuth2Client, gameId, roundNumber, playersEmails, categories);
-        });
+        return new Promise((resolve, reject) => {
+            // Check if we have previously stored a token.
+            fs.readFile(TOKEN_PATH, (err, token) => {
+                if (err) resolve(this.getNewToken(oAuth2Client));
+                oAuth2Client.setCredentials(JSON.parse(token));
+                resolve(oAuth2Client);
+            });
+        })
     }
 
     /**
      * Get and store new token after prompting for user authorization, and then
      * execute the given callback with the authorized OAuth2 client.
      * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
-     * @param {getEventsCallback} callback The callback for the authorized client.
      */
-    getNewToken(oAuth2Client, callback) {
+    getNewToken(oAuth2Client) {
         const authUrl = oAuth2Client.generateAuthUrl({
             access_type: 'offline',
             scope: SCOPES,
@@ -48,24 +49,25 @@ class GmailHelper {
             input: process.stdin,
             output: process.stdout,
         });
-        rl.question('Enter the code from that page here: ', (code) => {
-            rl.close();
-            oAuth2Client.getToken(code, (err, token) => {
-                if (err) return console.error('Error retrieving access token', err);
-                oAuth2Client.setCredentials(token);
-                // Store the token to disk for later program executions
-                console.log('about to write to token.json file');
-                fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-                    if (err) return console.error(err);
-                    console.log('Token stored to', TOKEN_PATH);
+
+        return new Promise((resolve, reject) => {
+            rl.question('Enter the code from that page here: ', (code) => {
+                rl.close();
+                oAuth2Client.getToken(code, (err, token) => {
+                    if (err) return console.error('Error retrieving access token', err);
+                    oAuth2Client.setCredentials(token);
+                    // Store the token to disk for later program executions
+                    fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+                        if (err) return console.error(err);
+                        console.log('Token stored to', TOKEN_PATH);
+                    });
+                    return resolve(oAuth2Client);
                 });
-                callback(oAuth2Client);
             });
         });
     }
 
     createPlainTextMessage(categories) {
-
         let content = "Enter your response on each line after the 3 colons\n";
 
         for (let i = 0; i < categories.length; i++) {
@@ -149,6 +151,7 @@ class GmailHelper {
                         }
                     });
                 }
+                return playersThatResponded;
             }
         });
     }
@@ -199,7 +202,7 @@ class GmailHelper {
                 let reR = /\r/;
                 let question = lineParts[0].replace(reArrow, "");
                 let answer = lineParts[1].replace(reR, "");
-                // console.log("QUESTION = " + noExtraCharsQuestion + " ANSWER = " + lineParts[1]);
+
                 let userResponse = {
                     "question": question,
                     "answer": answer
