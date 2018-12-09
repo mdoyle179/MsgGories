@@ -79,15 +79,16 @@ var min = 0;
 var max = msgGories.length;
 
 const initialState = {
-  items:[],
+  currentCategories:[],
   players: [],
   action: "",
   gameStarted: false,
   msgGories: msgGories,
   letter: null,
-  currentRound: 1,
+  currentRound: 0,
   maxRounds: 3,
-  gameOver: false
+  gameOver: false,
+  gameSessionID: null
 
 };
 
@@ -100,7 +101,7 @@ export default function (state = initialState, action) {
     //   msgGories.splice(random, 1);
       return {
         ...state,
-        items: [],
+        currentCategories: [],
         action: action.type
       };
     case GET_PLAYERS:
@@ -117,7 +118,7 @@ export default function (state = initialState, action) {
         action: action.type
       };
       case START_GAME:
-      // var random = Math.floor(Math.random() * (+max - +min)) + +min;  
+      //var random = Math.floor(Math.random() * (+max - +min)) + +min;  
       // var categoriesArrayCopy = state.msgGories[0].items.slice(0);
       var thisRoundCategories = state.msgGories.shift()
 
@@ -126,7 +127,7 @@ export default function (state = initialState, action) {
         ...state,
         action: action.type,
         gameStarted: true,
-        items:  thisRoundCategories.items
+        currentCategories:  thisRoundCategories.items
 
 
       };

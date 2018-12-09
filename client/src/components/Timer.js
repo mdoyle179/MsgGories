@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
-import { startGame, timesUp } from "../actions/itemActions";
+import { startGame, timesUp } from "../actions/gameActions";
 import  React from "react";
 import  ms from "pretty-ms";
+const uuid = require("uuid");
 
 
 class Timer extends React.Component {
@@ -19,8 +20,25 @@ class Timer extends React.Component {
   }
 
   startTimer() {
+    const {players} = this.props.gameReducerInstance;
+    const {msgGories} = this.props.gameReducerInstance;
+    const {currentRound} = this.props.gameReducerInstance;
+    
+    var thisRound = currentRound + 1;
+  
     var self=this;
-    this.props.startGame();
+    var gameSessionID = uuid();
+
+
+    const gameData = {
+      gameSessionID: gameSessionID,
+      currentRound: 1,
+      players: players,
+      categories: msgGories[thisRound -1].items
+    }
+
+
+    this.props.startGame(gameData);
     setTimeout(function(){
       self.setState({
       time: self.state.time,
@@ -94,7 +112,7 @@ class Timer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  item: state.item
+  gameReducerInstance: state.gameReducerInstance
 });
 
 export default connect(

@@ -9,7 +9,7 @@ import {
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import { connect } from "react-redux";
-import { startGame } from "../actions/itemActions";
+import { startGame } from "../actions/gameActions";
 
 class Ready extends Component {
   state = {
@@ -58,13 +58,13 @@ class Ready extends Component {
 
   render() {
 
-    const { gameStarted } = this.props.itemsReducerInstance;
+    const { gameStarted } = this.props.gameReducerInstance;
     if (!gameStarted) return null;
 
     if (gameStarted && !this.state.toggledOnce) this.toggle();
 
     if (this.state.countDown == false) this.startCountdown();
-    const { players } = this.props.itemsReducerInstance;
+    const { players } = this.props.gameReducerInstance;
 
     return (
       <div id="splash">
@@ -106,7 +106,7 @@ class Ready extends Component {
 }
 
 const mapStateToProps = state => ({
-  itemsReducerInstance: state.itemsReducerInstance
+  gameReducerInstance: state.gameReducerInstance
 });
 export default connect(
   mapStateToProps,

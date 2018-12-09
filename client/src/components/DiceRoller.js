@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateLetter } from "../actions/itemActions";
+import { updateLetter } from "../actions/gameActions";
 
 class DiceRoller extends Component {
 
 
   componentDidMount = (event) =>{
-    const { letter } = this.props.itemsReducerInstance;
+    const { letter } = this.props.gameReducerInstance;
 
     if (letter === null) this.generateLetter();
 
@@ -34,10 +34,10 @@ class DiceRoller extends Component {
 
   render() {
  
-    const {gameStarted} = this.props.itemsReducerInstance;
+    const {gameStarted} = this.props.gameReducerInstance;
     if (!gameStarted) return null;
 
-    const { letter } = this.props.itemsReducerInstance;
+    const { letter } = this.props.gameReducerInstance;
 
     if (letter === null) this.generateLetter();
   
@@ -57,7 +57,7 @@ class DiceRoller extends Component {
 }
 
 const mapStateToProps = state => ({
-  itemsReducerInstance: state.itemsReducerInstance
+  gameReducerInstance: state.gameReducerInstance
 });
 
 export default connect(

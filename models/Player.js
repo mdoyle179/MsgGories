@@ -13,11 +13,16 @@ const PlayerSchema = new Schema({
       type: String,
       default: ""
     },
+    email: {
+      type: Schema.Types.String,
+      default: "donny.t@whitehouse.gov"   
+    },
     score: {
-      type: Schema.Types.Decimal128
+      type: Schema.Types.Number
       
     }
+
   });
 
- var Player = mongoose.model("Player", PlayerSchema,"Players");
- module.exports = Player;
+  var Player = mongoose.model("Player", PlayerSchema,"Players");
+  module.exports = Player;

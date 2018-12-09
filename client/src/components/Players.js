@@ -3,7 +3,7 @@ import { Container} from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getPlayers} from "../actions/itemActions";
+import { getPlayers} from "../actions/gameActions";
 
 class Players extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Players extends Component {
     
     
       render() {
-        const { players } = this.props.itemsReducerInstance;
+        const { players } = this.props.gameReducerInstance;
         return (
 
           <Container id="playerList" >
@@ -45,7 +45,7 @@ Players.propTypes = {
   };
   
   const mapStateToProps = state => ({
-    itemsReducerInstance: state.itemsReducerInstance
+    gameReducerInstance: state.gameReducerInstance
   });
   
   export default connect(

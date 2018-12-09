@@ -11,7 +11,7 @@ import uuid from "uuid";
 import { connect } from "react-redux";
 import {
   getItems, getPlayers
-} from "../actions/itemActions";
+} from "../actions/gameActions";
 import Timer from "./Timer";
 import DiceRoller from "./DiceRoller";
 import PropTypes from "prop-types";
@@ -22,14 +22,14 @@ import Ready from "./Ready";
 class CategoriesList extends Component {
   constructor(props) {
     super(props);
-    const { items } = this.props.itemsReducerInstance;
+    const { currentCategories } = this.props.gameReducerInstance;
 
     this.toggle = this.toggle.bind(this);
     this.state = {
       tooltipOpen: false,
       toolTips: {}
     };
-    for (var i = 0; i < items.length; i++) {
+    for (var i = 0; i < currentCategories.length; i++) {
       this.state.toolTips["inputX" + i] = false;
     }
   }
@@ -49,8 +49,8 @@ class CategoriesList extends Component {
   }
 
 renderCategoryItem = (name, itemIndex) => {
-  const { action } = this.props.itemsReducerInstance;
-  const {gameStarted} = this.props.itemsReducerInstance;
+  const { action } = this.props.gameReducerInstance;
+  const {gameStarted} = this.props.gameReducerInstance;
     if (gameStarted)
     {
       return (
@@ -69,7 +69,7 @@ renderCategoryItem = (name, itemIndex) => {
 }
 
   render() {
-    const { items } = this.props.itemsReducerInstance;
+    const { currentCategories } = this.props.gameReducerInstance;
 
     var itemIndex = 0;
     return (
@@ -79,7 +79,7 @@ renderCategoryItem = (name, itemIndex) => {
         <div id="stage">
           <ListGroup>
             <TransitionGroup>
-              {items.map(({ id, name }) => (
+              {currentCategories.map(({ id, name }) => (
                 <CSSTransition key={id} timeout={500} classNames="fade">
                   <ListGroupItem>
 
@@ -104,12 +104,11 @@ renderCategoryItem = (name, itemIndex) => {
 }
 
 CategoriesList.propTypes = {
-  getItems: PropTypes.func.isRequired,
-  item: PropTypes.object.isRequired
+
 };
 
 const mapStateToProps = state => ({
-  itemsReducerInstance: state.itemsReducerInstance
+  gameReducerInstance: state.gameReducerInstance
 });
 
 export default connect(
