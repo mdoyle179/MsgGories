@@ -36,7 +36,8 @@ class Timer extends React.Component {
       currentRound: 1,
       players: players,
       categories: msgGories[thisRound -1].items,
-      letter: letter
+      letter: letter,
+      timesUP:false
 
     }
 
@@ -68,12 +69,21 @@ class Timer extends React.Component {
   }
 
   renderTimer() {
+    const {gameSessionID} = this.props.gameReducerInstance;
+    const {currentRound} = this.props.gameReducerInstance;
+
     if (this.state.time < 1000) return 0;
 
-    if (this.state.time >= 30000){
+    var gameData = {
+      gameSessionID :gameSessionID,
+      currentRound :currentRound,
+      playerEmail :"agdel_irlanda@comast.net"
+    }
+
+    if (this.state.time >= 50000){
       this.stopTimer();
       this.resetTimer();
-      this.props.timesUp();
+      this.props.timesUp(gameData);
       return 0;
     }
 

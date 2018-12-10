@@ -71,7 +71,7 @@ class GmailHelper {
         let content = "Letter for this round = " + letter + " . Enter your response on each line after the 3 colons\n";
 
         for (let i = 0; i < categories.length; i++) {
-            content += categories[i] + DELIMITER + "\n";
+            content += categories[i].name + DELIMITER + "\n";
         }
         return content;
     }

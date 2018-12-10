@@ -72,6 +72,8 @@ class CategoriesList extends Component {
 
   renderSubmit = () => {
     const { gameStarted } = this.props.gameReducerInstance;
+    const {timesUp} = this.props.gameReducerInstance;
+    if (timesUp) return null;
     if (gameStarted) return (
 
       <div><button >Submit Answers</button></div>

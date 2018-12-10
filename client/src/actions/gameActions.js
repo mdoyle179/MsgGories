@@ -46,10 +46,15 @@ export const updateLetter = (letter) => {
   };
 };
 
-export const timesUp = () => {
-  return {
-    type: TIMES_UP
-  };
+export const timesUp = (gameData) => dispatch => {
+    console.log("Times up action: " + gameData)    
+    axios.get("./api/game/getMessages", gameData).then(res =>
+        dispatch({
+            type: TIMES_UP,
+            payload: res.data
+        })
+    );
+    
 };
 
 export const sendPlayerEmails = () => {
@@ -70,7 +75,8 @@ export const startGame =  gameData => dispatch  => {
 
   axios.post('/api/game/sendPlayerMessages', gameData);
    dispatch({
-     type: START_GAME
+     type: START_GAME,
+     payload: gameData
    });
   
 };

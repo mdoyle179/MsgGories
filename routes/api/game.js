@@ -19,6 +19,7 @@ router.get("/players", (req, res) => {
 
 // @desc Sends the email to the players
 router.post("/sendPlayerMessages", (req, res) => {
+    console.log(req.body.categories);
     let oauth2client = "";
     readClientSecret()
         .then(clientSecretJson => {
@@ -29,7 +30,7 @@ router.post("/sendPlayerMessages", (req, res) => {
             let content = gmailHelper.createPlainTextMessage(req.body.categories, req.body.letter);
 
             for (let i = 0; i < req.body.players.length; i++) {
-                let email = gmailHelper.createEmail(content, req.body.gameSessionID, req.body.currentRound, req.body.players[i]);
+                let email = gmailHelper.createEmail(content, req.body.gameSessionID, req.body.currentRound, req.body.players[i].email);
                 gmailHelper.sendEmail(oauth2client, email);
             }
             console.log(req.body.gameSessionID);
@@ -41,7 +42,7 @@ router.post("/sendPlayerMessages", (req, res) => {
 
 // @desc Gets the emails from the players
 router.get("/getMessages", (req, res) => {
-
+    console.log("Getting resposes");
     let oauth2client = "";
     readClientSecret()
         .then(clientSecretJson => {

@@ -8,10 +8,12 @@ import { getPlayers} from "../actions/gameActions";
 class Players extends Component {
   constructor(props) {
     super(props);
-    props.getPlayers();
+
   }
 
-    
+    componentDidMount(){
+      this.props.getPlayers();
+    }
     
       render() {
         const { players } = this.props.gameReducerInstance;

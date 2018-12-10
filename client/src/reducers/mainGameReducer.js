@@ -79,7 +79,9 @@ var min = 0;
 var max = msgGories.length;
 
 const initialState = {
-  currentCategories:[],
+  currentCategories: [],
+  playersHash: {},
+  hostPlayer: "agdel.m.irlanda@gmail.com",
   players: [],
   action: "",
   gameStarted: false,
@@ -89,7 +91,8 @@ const initialState = {
   maxRounds: 3,
   gameOver: false,
   gameSessionID: null,
-  gameAnswers: []
+  gameAnswers: [],
+  timesUp:true
 
 };
 
@@ -97,28 +100,33 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case GET_ITEMS:
 
-    //  var random = Math.floor(Math.random() * (+max - +min)) + +min;  
-    //   var currentMsgGoriesItems = msgGories[random].items;
-    //   msgGories.splice(random, 1);
+      //  var random = Math.floor(Math.random() * (+max - +min)) + +min;  
+      //   var currentMsgGoriesItems = msgGories[random].items;
+      //   msgGories.splice(random, 1);
       return {
         ...state,
         currentCategories: [],
         action: action.type
       };
     case GET_PLAYERS:
+      var tempPlayersHash = {};
+      for (var i = 0; i < action.payload.length; i++) {
+        tempPlayersHash[action.payload[i].email] = action.payload[i];
+      }
       return {
         ...state,
         players: action.payload,
-        action: action.type
+        action: action.type,
+        playersHash: tempPlayersHash
       };
 
-      case UPDATE_LETTER:
+    case UPDATE_LETTER:
       return {
         ...state,
         letter: action.payload,
         action: action.type
       };
-      case START_GAME:
+    case START_GAME:
       //var random = Math.floor(Math.random() * (+max - +min)) + +min;  
       // var categoriesArrayCopy = state.msgGories[0].items.slice(0);
       var thisRoundCategories = state.msgGories.shift()
@@ -128,16 +136,22 @@ export default function (state = initialState, action) {
         ...state,
         action: action.type,
         gameStarted: true,
-        currentCategories:  thisRoundCategories.items
+        currentCategories: thisRoundCategories.items,
+        timesUp:false,
+        currentRound: action.payload.currentRound,
+        gameSession: action.payload.gameSessionID
 
 
       };
 
     case TIMES_UP:
-    console.log(state.gameAnswers)
-    return {
-      ...state
-    }
+      console.log(state.gameAnswers)
+
+      return {
+        ...state,
+        timesUp:true
+
+      }
     case GET_PLAYER_RESPONSES:
       return {
         ...state
