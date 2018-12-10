@@ -137,7 +137,7 @@ class GmailHelper {
         });
     }
 
-    readEmails(auth, messages, gameId, roundNumber, playersEmails) {
+    readEmails(auth, messages, gameId, roundNumber, playerEmail) {
         const gmail = google.gmail({ version: 'v1', auth });
         let subject = this.createSubject(gameId, roundNumber, true);
         let userId = "me";
@@ -152,7 +152,7 @@ class GmailHelper {
                 }, (err, res) => {
                     if (err) return console.log('The API returned an error: ' + err);
                     else {
-                        let playerResponse = this.getPlayerResponse(res.data, subject, playersEmails);
+                        let playerResponse = this.getPlayerResponse(res.data, subject, playerEmail);
                         if (Object.keys(playerResponse).length > 0) {
                             resolve(playerResponse);
                         }
@@ -162,7 +162,7 @@ class GmailHelper {
         });
     }
 
-    getPlayerResponse(response, replySubject, playersEmails) {
+    getPlayerResponse(response, replySubject, playerEmail) {
         let objectToReturn = {};
         let headers = response.payload.headers;
         let subject = "";
@@ -181,15 +181,12 @@ class GmailHelper {
 
         // See if the subject matches the one we are looking for
         if (subject === replySubject) {
-            // console.log("Found a reply subject = " + subject);
-
             // See if it matches the players email
-            if (playersEmails.indexOf(from)) {
+            if (from.includes(playerEmail)) {
                 // console.log("Found the person = " + from);
+                objectToReturn.playerEmail = playerEmail;
+                objectToReturn.responses = this.parseAnswers(response);
             }
-            objectToReturn.playerEmail = from;
-
-            objectToReturn.responses = this.parseAnswers(response);
         }
 
         return objectToReturn;
