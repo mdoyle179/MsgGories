@@ -11,6 +11,19 @@ class Players extends Component {
 
   }
 
+  renderButton = (name, score,  playerEmail) => {
+    const {playersHash} = this.props.gameReducerInstance;
+    var buttonTextStyle ={
+      color:"gray"
+    } 
+    if (playersHash)
+    {
+      console.log(playersHash);
+      if (playersHash[playerEmail]) buttonTextStyle.color = "lime";
+    }
+
+    return (<button onClick={this.resetTimer} style={buttonTextStyle}>{name}<span style={{marginLeft:"10px"}}>{score}</span></button>)
+  }
     componentDidMount(){
       this.props.getPlayers();
     }
@@ -23,10 +36,10 @@ class Players extends Component {
            
               <TransitionGroup>
                 <div style={{textAlign:"center", fontSize:"small"}}>Players</div>
-                {players.map(({ id, name, score }) => (
+                {players.map(({ id, name, score, email }) => (
                   <CSSTransition key={id} timeout={500} classNames="fade">
                     <div>
-                    <button onClick={this.resetTimer}>{name}<span style={{marginLeft:"10px"}}>{score}</span></button> 
+                    {this.renderButton(name, score, email)}
 
                     </div>
                   </CSSTransition>
