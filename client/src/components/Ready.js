@@ -17,7 +17,7 @@ class Ready extends Component {
     name: "",
     letter: "",
     toggledOnce: false,
-    seconds: 5,
+    seconds: 10,
     countDown: false
   };
 

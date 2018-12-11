@@ -1,4 +1,5 @@
-import { GET_ITEMS, GET_PLAYERS, GET_PLAYER_RESPONSES, SEND_PLAYER_EMAILS, START_GAME, UPDATE_LETTER, TIMES_UP } from "../actions/types";
+import { GET_ITEMS, GET_PLAYERS, GET_PLAYER_RESPONSES, SEND_PLAYER_EMAILS, START_GAME, UPDATE_LETTER, TIMES_UP,
+  SUBMIT_HOSTPLAYER_ANSWERS } from "../actions/types";
 var category1 = {
   items: [
     {
@@ -111,7 +112,7 @@ export default function (state = initialState, action) {
     case GET_PLAYERS:
       var tempPlayersHash = {};
       for (var i = 0; i < action.payload.length; i++) {
-        tempPlayersHash[action.payload[i].email] = action.payload[i];
+        tempPlayersHash[action.payload[i].email] = null;
       }
       return {
         ...state,
@@ -159,6 +160,13 @@ console.log(tempPlayersHash);
     case GET_PLAYER_RESPONSES:
       return {
         ...state
+      };
+      case SUBMIT_HOSTPLAYER_ANSWERS:
+      var tempHash = state.playersHash;
+      tempHash["agdel.m.irlanda@gmail.com"] = action.payload;
+      return {
+        ...state,
+        playersHash: tempHash
       };
 
     default:

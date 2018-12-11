@@ -10,3 +10,4 @@ export const UPDATE_LETTER = "UPDATE_LETTER";
 export const TIMES_UP = "TIMES_UP";
 export const NEXT_ROUND = "NEXT_ROUND";
 export const GAME_OVER = "GAME_OVER";
+export const SUBMIT_HOSTPLAYER_ANSWERS = "SUBMIT_HOSTPLAYER_ANSWERS";

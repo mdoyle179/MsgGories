@@ -10,7 +10,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import uuid from "uuid";
 import { connect } from "react-redux";
 import {
-  getItems, getPlayers
+  getItems, getPlayers, submitHostPlayerAnswers
 } from "../actions/gameActions";
 import Timer from "./Timer";
 import DiceRoller from "./DiceRoller";
@@ -67,6 +67,7 @@ class CategoriesList extends Component {
     console.log("submitting");
     e.preventDefault();
     console.log(this.state.answersObject);
+    this.props.submitHostPlayerAnswers(this.state.answersObject);
 
   }
 
@@ -152,5 +153,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems }
+  { getItems,submitHostPlayerAnswers }
 )(CategoriesList);
