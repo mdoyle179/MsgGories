@@ -129,7 +129,7 @@ const initialState = {
   gameAnswers: [],
   timesUp: false,
   nowScoringPlayer: "",
-  debugMode: true
+  debugMode: false
 
 };
 
