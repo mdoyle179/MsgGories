@@ -147,11 +147,15 @@ export default function (state = initialState, action) {
 
     case TIMES_UP:
       console.log(state.gameAnswers)
-
+      var tempPlayersHash = {};
+      for (var i = 0; i < action.payload.length; i++) {
+        tempPlayersHash[action.payload[i].email] = action.payload[i].responses;
+      }
+console.log(tempPlayersHash);
       return {
         ...state,
-        timesUp:true
-
+        timesUp:true,
+        playerHash: tempPlayersHash
       }
     case GET_PLAYER_RESPONSES:
       return {

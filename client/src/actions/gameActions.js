@@ -48,15 +48,29 @@ export const updateLetter = (letter) => {
 };
 
 export const timesUp = (gameData) => dispatch => {
-    console.log("Times up action: " + gameData)    
-    axios.post("./api/game/getMessages", gameData).then(res =>
-        dispatch({
-            type: TIMES_UP,
-            payload: res.data,
-            gameData: gameData
-        })
-    );
-    
+    console.log("Times up action: " + gameData)
+    var playerAnswers = []; 
+    console.log(gameData); 
+      console.log(gameData.playerEmail.length);
+    for(let i = 0; i < gameData.playerEmail.length; i++) 
+    {
+        var onePlayer = {
+            gameSessionID : gameData.gameSessionID,
+            currentRound : gameData.currentRound,
+            playerEmail : gameData.playerEmail[i]
+        } 
+        //don't send a body in a get! axios doesn't like it.
+        axios.post("./api/game/getMessages", onePlayer).then(res => {
+            console.log(res);
+           
+        });
+         playerAnswers.push(onePlayer);
+    }
+    console.log(playerAnswers);
+    dispatch({
+        type: TIMES_UP,
+        payload: playerAnswers
+      });
 };
 
 export const sendPlayerEmails = () => {
