@@ -17,7 +17,7 @@ class Ready extends Component {
     name: "",
     letter: "",
     toggledOnce: false,
-    seconds: 10,
+    seconds: 5,
     countDown: false
   };
 
@@ -94,10 +94,6 @@ class Ready extends Component {
                 </div>
               </div>
             </TransitionGroup>
-
-            <button onClick={this.toggle}>Play Game!</button>
-
-
           </ModalBody>
         </Modal>
       </div>

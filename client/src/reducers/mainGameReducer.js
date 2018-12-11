@@ -1,5 +1,7 @@
-import { GET_ITEMS, GET_PLAYERS, GET_PLAYER_RESPONSES, SEND_PLAYER_EMAILS, START_GAME, UPDATE_LETTER, TIMES_UP,
-  SUBMIT_HOSTPLAYER_ANSWERS } from "../actions/types";
+import {
+  GET_ITEMS, GET_PLAYERS, GET_PLAYER_RESPONSES, SEND_PLAYER_EMAILS, START_GAME, UPDATE_LETTER, TIMES_UP,
+  SUBMIT_HOSTPLAYER_ANSWERS, SCORE_ANSWERS, UPDATE_PLAYER_SCORE
+} from "../actions/types";
 var category1 = {
   items: [
     {
@@ -71,6 +73,38 @@ var category3 = {
     }
   ]
 }
+
+var player1SampleResponse = {
+  playerEmail: "agdel_irlanda@comcast.net",
+  responses: [
+    {
+      question: "Things Found on a Map",
+      answer: "Pins"
+    },
+    {
+
+      question: "School Supplies",
+      answer: "Pencil"
+    },
+    {
+      question: "Reason to Make a Call",
+      answer: "Paternal pops"
+    },
+    {
+      question: "Things With Wheels",
+      answer: "Pod racers"
+    },
+    {
+      question: "Fictional Characters",
+      answer: "Poe Dameron"
+    },
+    {
+      question: "Reptiles/Amphibians",
+      answer: "Perodactile"
+    }
+  ]
+}
+
 var msgGories = [];
 msgGories.push(category1);
 msgGories.push(category2);
@@ -93,7 +127,9 @@ const initialState = {
   gameOver: false,
   gameSessionID: null,
   gameAnswers: [],
-  timesUp:false
+  timesUp: false,
+  nowScoringPlayer: "",
+  debugMode: true
 
 };
 
@@ -138,7 +174,7 @@ export default function (state = initialState, action) {
         action: action.type,
         gameStarted: true,
         currentCategories: thisRoundCategories.items,
-        timesUp:false,
+        timesUp: false,
         currentRound: action.payload.currentRound,
         gameSessionID: action.payload.gameSessionID
 
@@ -147,26 +183,65 @@ export default function (state = initialState, action) {
 
     case TIMES_UP:
       console.log(state.gameAnswers)
-      var tempPlayersHash = {};
-      for (var i = 0; i < action.payload.length; i++) {
-        tempPlayersHash[action.payload[i].email] = action.payload[i].responses;
+      var tempPlayersHash = state.playersHash;
+      if (!state.debugMode) {
+        for (var i = 0; i < action.payload.length; i++) {
+          tempPlayersHash[action.payload[i].email] = action.payload[i].responses;
+        }
       }
-console.log(tempPlayersHash);
+      else {
+
+        for (var i = 0; i < player1SampleResponse.responses.length; i++) {
+          player1SampleResponse.responses[i]["points"] = null;
+        }
+      }
+
+      //TODO: Remove mock data:
+      tempPlayersHash[player1SampleResponse.playerEmail] = player1SampleResponse.responses;
+
+      console.log(tempPlayersHash);
       return {
         ...state,
-        timesUp:true,
-        playerHash: tempPlayersHash
+        timesUp: true,
+        playersHash: tempPlayersHash
       }
     case GET_PLAYER_RESPONSES:
       return {
         ...state
       };
-      case SUBMIT_HOSTPLAYER_ANSWERS:
+    case SUBMIT_HOSTPLAYER_ANSWERS:
       var tempHash = state.playersHash;
-      tempHash["agdel.m.irlanda@gmail.com"] = action.payload;
+      var hostPlayerResponses = [];
+      for (var i = 0; i < state.currentCategories.length; i++) {
+        var formattedAnswersObject = {}
+        formattedAnswersObject["question"] = state.currentCategories[i].name;
+        formattedAnswersObject["answer"] = action.payload[i];
+        formattedAnswersObject["points"] = null;
+        hostPlayerResponses.push(formattedAnswersObject);
+
+      }
+
+      tempHash["agdel.m.irlanda@gmail.com"] = hostPlayerResponses;
       return {
         ...state,
         playersHash: tempHash
+      };
+    case SCORE_ANSWERS:
+
+      return {
+        ...state,
+        nowScoringPlayer: action.payload
+      };
+
+    case UPDATE_PLAYER_SCORE:
+      var players = state.players;
+      for (var i = 0; i < state.players.length; i++) {
+        players[i].score = action.payload[players[i].email];
+      }
+
+      return {
+        ...state,
+        players: players
       };
 
     default:
