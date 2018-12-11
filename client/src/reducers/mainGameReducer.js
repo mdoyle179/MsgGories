@@ -194,10 +194,10 @@ export default function (state = initialState, action) {
         for (var i = 0; i < player1SampleResponse.responses.length; i++) {
           player1SampleResponse.responses[i]["points"] = null;
         }
+        tempPlayersHash[player1SampleResponse.playerEmail] = player1SampleResponse.responses;
       }
 
-      //TODO: Remove mock data:
-      tempPlayersHash[player1SampleResponse.playerEmail] = player1SampleResponse.responses;
+     
 
       console.log(tempPlayersHash);
       return {

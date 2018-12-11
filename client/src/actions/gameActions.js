@@ -16,14 +16,14 @@ export const getItems = ()=> {
       type: GET_ITEMS,
       payload: GET_ITEMS
   }
-}
+};
 
 export const updatePlayerScore = (data)=> {
     return{
         type: UPDATE_PLAYER_SCORE,
         payload: data
     }
-  }
+  };
 
 export const scoreAnswers = (playerEmail)=> {
     return{
