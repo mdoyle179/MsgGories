@@ -93,7 +93,7 @@ const initialState = {
   gameOver: false,
   gameSessionID: null,
   gameAnswers: [],
-  timesUp:true
+  timesUp:false
 
 };
 

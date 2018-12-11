@@ -71,6 +71,15 @@ class CategoriesList extends Component {
 
   }
 
+
+  renderScoreButtons = () => {
+    const {timesUp} = this.props.gameReducerInstance;
+    if (timesUp) return (
+    <div><button>0</button><button >1</button><button >2</button></div>
+    )
+    else return null;
+  }
+
   renderSubmit = () => {
     const { gameStarted } = this.props.gameReducerInstance;
     const {timesUp} = this.props.gameReducerInstance;
@@ -129,6 +138,7 @@ class CategoriesList extends Component {
             </ListGroup>
  
           </div>
+          {this.renderScoreButtons()}
           {this.renderSubmit()}
         </form>
         <hr />
