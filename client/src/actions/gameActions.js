@@ -62,9 +62,11 @@ export const timesUp = (gameData) => dispatch => {
         //don't send a body in a get! axios doesn't like it.
         axios.post("./api/game/getMessages", onePlayer).then(res => {
             console.log(res);
-           
+            console.log(onePlayer);
+            JSON.stringify(res);
+           playerAnswers[gameData.playerEmail[i]]  = (res.data);
         });
-         playerAnswers.push(onePlayer);
+         
     }
     console.log(playerAnswers);
     dispatch({
