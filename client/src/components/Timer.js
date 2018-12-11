@@ -78,7 +78,7 @@ class Timer extends React.Component {
     if (this.state.time < 1000) return 0;
     
 
-    if (this.state.time >= 60000){
+    if (this.state.time >= 80000){
       var tempPlayerEmails = [];
       for(let i= 0; i < players.length; ++i)
       {

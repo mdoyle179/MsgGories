@@ -41,7 +41,7 @@ class Splash extends Component {
             </div>
             </CSSTransition>
             <h2 style={{ textAlign: "center" }}>Presents</h2>
-            <div id="logoSplash">MsgGories</div>
+            <div id="logoSplash">MsgGories</div><span id="logoPic" />
             <div style={{ textAlign: "center" }}>In collaboration with</div>
             <div style={{ textAlign: "center" }}>
               <span style={{ color: "red", fontSize: "20pt" }}>
