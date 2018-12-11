@@ -140,7 +140,7 @@ export default function (state = initialState, action) {
         currentCategories: thisRoundCategories.items,
         timesUp:false,
         currentRound: action.payload.currentRound,
-        gameSession: action.payload.gameSessionID
+        gameSessionID: action.payload.gameSessionID
 
 
       };
