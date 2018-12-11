@@ -226,7 +226,7 @@ export default function (state = initialState, action) {
 
       }
 
-      tempHash["agdel.m.irlanda@gmail.com"] = hostPlayerResponses;
+      tempHash[state.hostPlayer] = hostPlayerResponses;
       return {
         ...state,
         playersHash: tempHash
