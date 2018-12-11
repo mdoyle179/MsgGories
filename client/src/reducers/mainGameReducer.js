@@ -129,7 +129,7 @@ const initialState = {
   gameAnswers: [],
   timesUp: false,
   nowScoringPlayer: "",
-  debugMode: true
+  debugMode: false
 
 };
 
@@ -147,8 +147,13 @@ export default function (state = initialState, action) {
       };
     case GET_PLAYERS:
       var tempPlayersHash = {};
+      var hostPlayer;
       for (var i = 0; i < action.payload.length; i++) {
         tempPlayersHash[action.payload[i].email] = null;
+        if (action.payload[i].host)
+        {
+          hostPlayer = action.payload[i].email;
+        }
       }
       return {
         ...state,
@@ -182,12 +187,12 @@ export default function (state = initialState, action) {
       };
 
     case TIMES_UP:
-      console.log(state.gameAnswers)
+      console.log(action.payload)
       var tempPlayersHash = state.playersHash;
       if (!state.debugMode) {
-        for (var i = 0; i < action.payload.length; i++) {
-          tempPlayersHash[action.payload[i].email] = action.payload[i].responses;
-        }
+
+          tempPlayersHash[action.payload.playerEmail] = action.payload.responses;
+
       }
       else {
 
