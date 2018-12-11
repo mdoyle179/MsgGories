@@ -41,7 +41,7 @@ router.post("/sendPlayerMessages", (req, res) => {
 });
 
 // @desc Gets the emails from the players
-router.get("/getMessages", (req, res) => {
+router.post("/getMessages", (req, res) => {
     console.log("Getting resposes");
     let oauth2client = "";
     readClientSecret()

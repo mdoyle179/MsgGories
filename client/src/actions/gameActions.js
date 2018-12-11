@@ -49,7 +49,7 @@ export const updateLetter = (letter) => {
 
 export const timesUp = (gameData) => dispatch => {
     console.log("Times up action: " + gameData)    
-    axios.get("./api/game/getMessages", gameData).then(res =>
+    axios.post("./api/game/getMessages", gameData).then(res =>
         dispatch({
             type: TIMES_UP,
             payload: res.data,
