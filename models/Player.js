@@ -15,7 +15,7 @@ const PlayerSchema = new Schema({
     },
   email: {
       type: Schema.Types.String,
-      default: "donny.t@whitehouse.gov"   
+      default: "defaultEmail@email.com"   
     },
   score: {
      type: Schema.Types.Number      

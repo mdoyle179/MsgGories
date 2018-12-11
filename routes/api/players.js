@@ -7,8 +7,9 @@ const Player = require("../../models/Player.js");
 // @route POST api/items
 // @desc Create Post
 router.post("/", (req, res) => {
+  var id = mongoose.Types.ObjectId();
   const newplayer = new Player({
-    _id: req.body.id,
+    _id: id,
     name: req.body.name,
     score: req.body.score,
     email: req.body.email

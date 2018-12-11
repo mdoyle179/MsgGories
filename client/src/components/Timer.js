@@ -71,16 +71,21 @@ class Timer extends React.Component {
   renderTimer() {
     const {gameSessionID} = this.props.gameReducerInstance;
     const {currentRound} = this.props.gameReducerInstance;
-
+    const {players} = this.props.gameReducerInstance;
     if (this.state.time < 1000) return 0;
-
+    var tempPlayerEmails = [];
+    for(let i= 0; i < players.length; ++i)
+    {
+      tempPlayerEmails.push(players[i].email); 
+    }
+    console.log('these are the player emails' +tempPlayerEmails);
     var gameData = {
       gameSessionID :gameSessionID,
       currentRound :currentRound,
-      playerEmail :"agdel_irlanda@comast.net"
+      playerEmail :  tempPlayerEmails
     }
 
-    if (this.state.time >= 50000){
+    if (this.state.time >= 30000){
       this.stopTimer();
       this.resetTimer();
       this.props.timesUp(gameData);
