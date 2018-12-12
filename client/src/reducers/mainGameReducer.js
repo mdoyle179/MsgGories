@@ -116,7 +116,7 @@ var max = msgGories.length;
 const initialState = {
   currentCategories: [],
   playersHash: {},
-  hostPlayer: "agdel.m.irlanda@gmail.com",
+  hostPlayer: null,
   players: [],
   action: "",
   gameStarted: false,
@@ -159,7 +159,8 @@ export default function (state = initialState, action) {
         ...state,
         players: action.payload,
         action: action.type,
-        playersHash: tempPlayersHash
+        playersHash: tempPlayersHash,
+        hostPlayer: hostPlayer
       };
 
     case UPDATE_LETTER:
