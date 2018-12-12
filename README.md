@@ -21,6 +21,8 @@ Connecting up to the Database:
         1. control c to exit the shell. 
 1. Create a players.json file which will be imported into the database.
     1. The file can be placed anywhere, but should not be checked into Git.
+    1. If you are the host, put your name and email into appropriate locations and make sure for host you set the value to true.
+    1. Add a json object for each other player. 
     1. Here is an example file:
     ```json [
         {
@@ -43,8 +45,7 @@ Connecting up to the Database:
         }
     ]
     ```
-        1. If you are the host, put your name and email into appropriate locations and make sure for host you set the value to true.
-        1. Add a json object for each other player. 
+
 1. Execute the following command at the folder location where mongoDB is installed to import players to the db, where /path/to/the/ represents the path to where players.json file is. The file is in the root directory of the repository by default.
 
     1. mongoimport --db msggories --collection Players --file /pathTo/players.json --jsonArray
