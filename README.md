@@ -24,7 +24,8 @@ Connecting up to the Database:
     1. If you are the host, put your name and email into appropriate locations and make sure for host you set the value to true.
     1. Add a json object for each other player. 
     1. Here is an example file:
-    ```json [
+    ```json 
+    [
         {
             "name": "<put_host_name_here>",
             "email": "<put_host_email_here>",
