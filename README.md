@@ -41,7 +41,8 @@ Connecting up to the Database:
             "score": 0,
             "host": false
         }
-    ]```
+    ]
+    ```
         1. If you are the host, put your name and email into appropriate locations and make sure for host you set the value to true.
         1. Add a json object for each other player. 
 1. Execute the following command at the folder location where mongoDB is installed to import players to the db, where /path/to/the/ represents the path to where players.json file is. The file is in the root directory of the repository by default.
