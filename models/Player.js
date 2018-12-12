@@ -19,7 +19,11 @@ const PlayerSchema = new Schema({
     },
   score: {
      type: Schema.Types.Number      
-    }
+    },
+    host: {
+      type: Schema.Types.Boolean,
+      default: false   
+    },
 
   });
 
