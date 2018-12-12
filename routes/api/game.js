@@ -42,7 +42,7 @@ router.post("/sendPlayerMessages", (req, res) => {
 
 // @desc Gets the emails from the players
 router.post("/getMessages", (req, res) => {
-    console.log("Getting resposes");
+    console.log("Getting responses");
     let oauth2client = "";
     readClientSecret()
         .then(clientSecretJson => {
@@ -58,11 +58,10 @@ router.post("/getMessages", (req, res) => {
             console.log(req.body.currentRound);
             console.log(req.body.playerEmail);
             return gmailHelper.readEmails(oauth2client, allEmails, req.body.gameSessionID, req.body.currentRound, req.body.playerEmail);
-            
+
         }).then(playerThatResponded => {
             console.log(JSON.stringify(playerThatResponded));
             res.send(playerThatResponded);
-            //return playerThatResponded;
         });
 });
 

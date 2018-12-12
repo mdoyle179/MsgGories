@@ -69,7 +69,6 @@ class GmailHelper {
 
     createPlainTextMessage(categories, letter) {
         let content = "Letter for this round = " + letter + " . Enter your response on each line after the 3 colons\n";
-
         for (let i = 0; i < categories.length; i++) {
             content += categories[i].name + DELIMITER + "\n";
         }
@@ -127,10 +126,13 @@ class GmailHelper {
             // Get all messages in the inbox
             gmail.users.messages.list({
                 'userId': userId,
+                'q': "newer_than:1h",
+                // 'q': "newer_than:1h from:msggories@gmail.com",
             }, (err, res) => {
                 if (err) return console.log('The API returned an error: ' + err);
                 else {
                     let messages = res.data.messages;
+                    console.log("Number of messages in last hour = " + messages.length);
                     resolve(messages);
                 }
             });
