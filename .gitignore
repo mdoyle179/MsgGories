@@ -61,3 +61,6 @@ typings/
 .next
 credentials.json
 token.json
+
+players.csv
+players.json
