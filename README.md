@@ -1,7 +1,7 @@
 # MsgGories
 A fun and easy way to play scattegories on your phone!
 
-![SplashScreen](https://github.com/mdoyle179/MsgGories/tree/master/client/src/img/SplashScreen.png)
+![SplashScreen](/client/src/img/SplashScreen.png)
 
 Initial Setup:
 1. in the root folder run : npm update
