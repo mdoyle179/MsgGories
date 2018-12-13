@@ -1,6 +1,8 @@
 # MsgGories
 A fun and easy way to play scattegories on your phone!
 
+![SplashScreen](https://github.com/mdoyle179/MsgGories/tree/master/client/src/img/SplashScreen.png)
+
 Initial Setup:
 1. in the root folder run : npm update
 1. cd client 
@@ -9,7 +11,7 @@ Initial Setup:
     1. If you need to generate the credentials.json file, follow the instructions here and use your own gmail account: https://developers.google.com/gmail/api/quickstart/nodejs?authuser=2
     1. The token.json will be generated when you authorize the first time.
 
-Connecting up to the Database:
+Setting up to the Database:
 1. Install MongoDB to your computer (installs found at  https://docs.mongodb.com/manual/installation/ )
 1. There are two ways to create a collection in the Database: 
     1. MongoDB Compass GUI: 
