@@ -3,6 +3,11 @@ A fun and easy way to play scattegories on your phone!
 
 ![SplashScreen](/client/src/img/SplashScreen.png)
 
+What is MsgGories?  
+MsgGories is an application developed by a group of graduate students at Villanova for one of their Software Engineering Graduate courses. The application is a way to play Scateggories via email instead of the traditional way. 
+
+To play this game, a host player must run their application on their computer. The host player will then setup the database with the guest players they want to play with and those guest player's emails. When the host player starts the game, it will send out an email to each of the guest players. The guest players can then reply to the email with their answers within the specified time. The host player is able to fill out the answers in the host UI. Once the time is up, the host player can grade the answers! Have fun!
+
 Initial Setup:
 1. in the root folder run : npm update
 1. cd client 
